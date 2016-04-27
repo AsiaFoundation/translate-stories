@@ -14,6 +14,8 @@ const mongoose = require('mongoose');
 const csrf = require('koa-csrf');
 const kstatic = require('koa-static');
 
+const routes = require('./routes/index.js');
+
 console.log('Connecting to MongoDB (required)');
 mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGODB_URI || 'localhost');
 mongoose.connection.on("error", function(err) {
@@ -35,11 +37,8 @@ app.use(logger());
 csrf(app);
 app.use(convert(csrf.middleware));
 
-router.get('/', home);
-
-async function home (ctx) {
-  ctx.render('app');
-}
+router.get('/', routes.home);
+router.get('/book', routes.book);
 
 app.use(router.routes())
   .use(router.allowedMethods());

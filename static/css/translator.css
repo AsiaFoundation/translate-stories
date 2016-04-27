@@ -1,0 +1,161 @@
+h1 {
+  margin-top: 0;
+}
+/*#container {
+position: fixed; 
+top: 0px;
+bottom: 50px;
+overflow: auto; 
+}*/
+#frametop, #framebottom {
+  position: fixed; 
+  top: 10px;   
+  width: 100%; 
+  height: 100px;
+  overflow: hidden;
+}
+#framebottom {
+  top: auto;
+  bottom: 0; 
+  height: 100px;
+  overflow: hidden;
+}
+#dynamic_content {
+  position: fixed; 
+  top: 105px;
+  bottom: 100px;
+  overflow: auto;
+} 
+#status_bar {
+  padding: 5px 0 0 5px;
+  background-color: #EFEFEF;
+  border-radius: 5px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+#status_bar a {
+  padding-top: 5px;
+  font-size: 14px;
+/*   font-weight: bold; */
+}
+#status_bar img {
+  width: 24px;
+  margin: 0 5px 0 5px;
+}
+#nav_buttons table {
+  margin-bottom: 0;
+}
+#nav_buttons td {
+  border-bottom: 0;
+  font-size: small;
+  padding: 0 5px 0 5px;
+}
+table {
+  width: 100%;
+}
+td, th {
+  vertical-align: top;
+}
+textarea {
+  width: 100%;
+}
+.thumbnail {
+  width: 50px;
+}
+.revthumb {
+  width: 100px;
+}
+.thumbnail:hover {
+  width: 250px;
+}
+#story_table {
+  width: 80%;
+}
+#story_img {
+  width: 10%;
+}
+#story_src {
+  width: 45%;
+}
+#story_tgt {
+  width: 45%;
+}
+.editable {
+  background-color: white;
+  display: inline-block;
+  font-weight: bold;
+  width: 15em;
+}
+.editable[placeholder]:empty:before {
+  content: attr(placeholder);
+  color: #555;
+  font-weight: normal;
+}
+th {
+  font-variant: small-caps;
+}
+#output {
+  width: 80%;
+}
+#review_sub {
+  width: 20%;
+}
+.modal {
+  visibility: hidden;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+  overflow-y: hidden;
+}
+.modcontent {
+  top: auto;
+  width: 75%;
+  height: 95%;
+  margin: 15px auto;
+  background-color: #fff;
+  border: 1px solid #000;
+  padding: 15px;
+  text-align: center;
+  overflow-y: scroll;
+}
+.modcontent h2 {
+  background-color: #367AC3;
+  color: #fff;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+.closemodal {
+  float: right;
+  font-variant: small-caps;
+  font-size: small;
+  color: #fff;
+  font-weight: bold;
+}
+.closemodal a, a:visited, a:hover {
+  text-decoration: none;
+}
+button {
+  background-color: #DDD;
+  color: #000;
+}
+button a {
+  color: #000;
+  text-decoration: none;
+}
+.dot {
+  color: #D0D0D0;
+}
+[data-cssmodal-maxwidth] .modal-inner {
+  width: 75%;
+  left: 35%;
+}
+#nav_buttons button {
+  border: none;
+  background: transparent;
+  padding: 0;
+}
