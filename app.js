@@ -37,8 +37,10 @@ app.use(logger());
 csrf(app);
 app.use(convert(csrf.middleware));
 
-router.get('/', routes.home);
-router.get('/book', routes.book);
+router
+  .get('/', routes.home)
+  .get('/book', routes.book)
+  .post('/translate', routes.translate);
 
 app.use(router.routes())
   .use(router.allowedMethods());

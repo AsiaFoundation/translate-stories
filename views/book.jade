@@ -1,19 +1,14 @@
 extends ./layout.jade
 
 block content
-  link(rel="stylesheet", type="text/css", href="//yegor256.github.io/tacit/tacit.min.css")
-  link(rel="stylesheet", type="text/css", href="/css/translator.css")
-  link(rel="stylesheet", type="text/css", href="/css/modal.css")
+  link(rel="stylesheet", type="text/css", href="/lib/owl.carousel.min.css")
+  link(rel="stylesheet", type="text/css", href="/lib/gasp/translator.css")
 
   #frametop
-    a(href="https://global-asp.github.io/translator/")
-      h1 Global-ASP Translator
-    
     #status_bar
-      a#permalink(style="display:none") &nbsp;
-      a.call-modal(href="#modal-about", title="Clicking this link shows the modal") About
+      button.call-modal(data-toggle="modal", data-target="#modal-about") About
       span.dot •
-      a.call-modal(href="#modal-help") Help
+      button.call-modal(data-toggle="modal", data-target="#modal-help") Help
       span#nav_buttons(style="display:none")
       span.dot •
       button#prev(accesskey="p", title="Previous story", onclick="translate_story('prev')")
@@ -25,107 +20,110 @@ block content
       button#next(accesskey="n", title="Next story", onclick="translate_story(0)")
         img(src="next.png")
 
-  section#modal-about.modal--show(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
-    .modal-inner
-      header
-        h2#modal-label About
-
+  section#modal-about.modal.fade(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
+    .modal-dialog
       .modal-content
-        p
-          span Global-ASP Translator - Translation system for the&nbsp;
-          a(href="https://global-asp.github.io/") Global African Storybook Project
-        p
-          span This is intended to be an easy-to-use and accessible translation system to help automate the process of translating&nbsp;
-          a(href="http://africanstorybook.org/") African Storybook Project
-          span &nbsp;stories into other languages for&nbsp;
-          a(href="https://global-asp.github.io/") Global-ASP
-          span .
-        p It has deliberately been kept as minimal as possible to allow translators to focus on the work (and joy) of translation with as little distraction as possible.
-        p Stories are presented in order of length, from shortest to longest, to make the barrier to entry as low as possible for anyone who would like to participate in the project and contribute a translation. If you can only translate a few sentences or a few words, you can still help!
-        p
-          span All of the ASP and Global-ASP stories are&nbsp;
-          a(href="http://creativecommons.org/") Creative Commons-licensed
-          span . By contributing a translation to the project you agree to release your work under a Creative Commons license (either&nbsp;
-          a(href="https://creativecommons.org/licenses/by/4.0/") CC-BY
-          span &nbsp;or&nbsp;
-          a(href="https://creativecommons.org/licenses/by-nc/4.0/") CC-BY-NC
-          span ) in accordance with the license of the original story.
+        header.modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4#modal-label About
 
-    a.modal-close(href="#!", title="Close this modal", data-dismiss="modal", data-close="Close") &times;
+        .modal-body
+          p
+            span Global-ASP Translator - Translation system for the&nbsp;
+            a(href="https://global-asp.github.io/") Global African Storybook Project
+          p
+            span This is intended to be an easy-to-use and accessible translation system to help automate the process of translating&nbsp;
+            a(href="http://africanstorybook.org/") African Storybook Project
+            span &nbsp;stories into other languages for&nbsp;
+            a(href="https://global-asp.github.io/") Global-ASP
+            span .
+          p It has deliberately been kept as minimal as possible to allow translators to focus on the work (and joy) of translation with as little distraction as possible.
+          p Stories are presented in order of length, from shortest to longest, to make the barrier to entry as low as possible for anyone who would like to participate in the project and contribute a translation. If you can only translate a few sentences or a few words, you can still help!
+          p
+            span All of the ASP and Global-ASP stories are&nbsp;
+            a(href="http://creativecommons.org/") Creative Commons-licensed
+            span . By contributing a translation to the project you agree to release your work under a Creative Commons license (either&nbsp;
+            a(href="https://creativecommons.org/licenses/by/4.0/") CC-BY
+            span &nbsp;or&nbsp;
+            a(href="https://creativecommons.org/licenses/by-nc/4.0/") CC-BY-NC
+            span ) in accordance with the license of the original story.
 
-  section#modal-help.modal--show(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
-    .modal-inner
-      header
-        h2#modal-label Help
-
+  section#modal-help.modal.fade(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
+    .modal-dialog.modal-lg
       .modal-content
-        p
-          span To begin translating stories, just click on the "Translate!" button at the bottom of the page. This will open up a story from the&nbsp;
-          a(href="http://africanstorybook.org/") African Storybook Project
-          span &nbsp;collection, with empty space on the right for you to enter your translation.
-        p
-          span Make sure to enter your name and the language you are translating into at the top of the page. Your work will be released under the same&nbsp;
-          a(href="http://creativecommons.org/") Creative Commons
-          span &nbsp;license as the original story, and you will be credited for attribution using the name you select here. You can edit either field at any time, for example if you want to change the way you are attributed or translate into a different language.
-        p Within the main translation area of the page, images from each page of the story will appear on the left side accompanied by the original text of that page. On the far right side is a box where you can input your translation. You can hover over the image thumbnails to see larger versions of the pictures.
-        p
-          span If you have completed part of a translation but want to move on to another story or close the window, the text you have entered in each box will be saved automatically on your local machine so you can return to it later. Note that it will&nbsp;
-          strong NOT
-          span &nbsp;be submitted until you click on the "Review submission" button and then finally scroll down and click on "Submit Translation" to send it to&nbsp;
-          a(href="https://global-asp.github.io") Global-ASP
-          span &nbsp;for inclusion in the project.
-        p When you click on the "Review submission" button, a window will appear on screen containing the formatted text of your translation alongside the original story images. If there is anything you would like to add or change you can exit this window by clicking on the close button in the top right corner and make your changes in the translation area before submitting. To go back to the review window, click on the "Continue reviewing" button at the bottom of the page.
-        p
-          span Once you are satisfied with your translation in the Review window, click on the "Submit Translation" button to send it for inclusion in&nbsp;
-          a(href="https://global-asp.github.io") Global-ASP
-          span . You can optionally include your email address in the box above the submit button if you would like us to be able to contact you about your translation.
+        header.modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4#modal-label Help
+
+        .modal-body
+          p
+            span To begin translating stories, just click on the "Translate!" button at the bottom of the page. This will open up a story from the&nbsp;
+            a(href="http://africanstorybook.org/") African Storybook Project
+            span &nbsp;collection, with empty space on the right for you to enter your translation.
+          p
+            span Make sure to enter your name and the language you are translating into at the top of the page. Your work will be released under the same&nbsp;
+            a(href="http://creativecommons.org/") Creative Commons
+            span &nbsp;license as the original story, and you will be credited for attribution using the name you select here. You can edit either field at any time, for example if you want to change the way you are attributed or translate into a different language.
+          p Within the main translation area of the page, images from each page of the story will appear on the left side accompanied by the original text of that page. On the far right side is a box where you can input your translation. You can hover over the image thumbnails to see larger versions of the pictures.
+          p
+            span If you have completed part of a translation but want to move on to another story or close the window, the text you have entered in each box will be saved automatically on your local machine so you can return to it later. Note that it will&nbsp;
+            strong NOT
+            span &nbsp;be submitted until you click on the "Review submission" button and then finally scroll down and click on "Submit Translation" to send it to&nbsp;
+            a(href="https://global-asp.github.io") Global-ASP
+            span &nbsp;for inclusion in the project.
+          p When you click on the "Review submission" button, a window will appear on screen containing the formatted text of your translation alongside the original story images. If there is anything you would like to add or change you can exit this window by clicking on the close button in the top right corner and make your changes in the translation area before submitting. To go back to the review window, click on the "Continue reviewing" button at the bottom of the page.
+          p
+            span Once you are satisfied with your translation in the Review window, click on the "Submit Translation" button to send it for inclusion in&nbsp;
+            a(href="https://global-asp.github.io") Global-ASP
+            span . You can optionally include your email address in the box above the submit button if you would like us to be able to contact you about your translation.
+          
+          h3 Navigation
+          p The "Next" and "Previous" arrow buttons located at the top of the page can be used to navigate through the available stories in the collection. All work is saved in local storage, so you can feel free to browse the collection for stories you would like to translate, even if you have already begun working on another translation.
+          p Click on the "Random Story" button to visit a random story from the collection. There are over 300 stories in the collection, all of different lengths, styles, and subject matter, so go ahead and browse around until you see something you would be comfortable translating!
         
-        h3 Navigation
-        p The "Next" and "Previous" arrow buttons located at the top of the page can be used to navigate through the available stories in the collection. All work is saved in local storage, so you can feel free to browse the collection for stories you would like to translate, even if you have already begun working on another translation.
-        p Click on the "Random Story" button to visit a random story from the collection. There are over 300 stories in the collection, all of different lengths, styles, and subject matter, so go ahead and browse around until you see something you would be comfortable translating!
-      
-        h3 Linking to stories
-        p
-          span You can link directly to individual stories for translation using the Translator's simple API. Just add&nbsp;
-          code ?
-          span &nbsp;and the story's&nbsp;
-          a(href="https://global-asp.github.io/stories/master.html") index number
-          span &nbsp;to the end of the Translator url. For example:
-        ul
-          li
-            code https://global-asp.github.io/translator/?0030
-            span &nbsp;(this links to the translation template for story #0030)
-        p
-          span Try it out by clicking on
-          a(href="https://global-asp.github.io/translator/?0030") this link
-          span !
+          h3 Linking to stories
+          p
+            span You can link directly to individual stories for translation using the Translator's simple API. Just add&nbsp;
+            code ?
+            span &nbsp;and the story's&nbsp;
+            a(href="https://global-asp.github.io/stories/master.html") index number
+            span &nbsp;to the end of the Translator url. For example:
+          ul
+            li
+              code https://global-asp.github.io/translator/?0030
+              span &nbsp;(this links to the translation template for story #0030)
+          p
+            span Try it out by clicking on&nbsp;
+            a(href="https://global-asp.github.io/translator/?0030") this link
+            span !
 
-    a.modal-close(href="#!", title="Close this modal", data-dismiss="modal", data-close="Close") &times;
-
-  section#modal-review.modal--show(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
-    .modal-inner
-      header
-        h2#modal-label Review
-
+  section#modal-review.modal.fade(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
+    .modal-dialog
       .modal-content
-        #review_table &nbsp;
+        header.modal-header
+          button.close(type="button", data-dismiss="modal", aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4#modal-label Review
 
-        #rev_msg &nbsp;
-        br
+        .modal-body
+          #review_table &nbsp;
 
-        #submit_form(style="display:none")
-          form(action="//formspree.io/globalafricanstorybook@gmail.com", method="post")
-            input#name_line(type="hidden", name="name")
-            input#email(type="text", name="_replyto", placeholder="Your email (optional)", oninput="localStorage['gtr_email']=this.value")
-            input#thanks(type="hidden", name="_next", value="/translator/thanks.html")
-            input#subject_line(type="hidden", name="_subject", value="New submission!")
-            input#story_number(type="hidden", name="story_number", value="")
-            input#story_language(type="hidden", name="story_language", value="")
-            input#md_title(type="hidden", name="md_title", value="")
-            input#story_translation(type="hidden", name="story_translation", value="")
-            input(type="submit", value="Submit Translation")
+          #rev_msg &nbsp;
+          br
 
-    a.modal-close(href="#!", title="Close this modal", data-dismiss="modal", data-close="Close") &times;
+          #submit_form(style="display:none")
+            form(action="/translate", method="post")
+              input#name_line(type="hidden", name="name")
+              input#email(type="text", name="_replyto", placeholder="Your email (optional)", oninput="localStorage['gtr_email']=this.value")
+              input#thanks(type="hidden", name="_next", value="/translator/thanks.html")
+              input#subject_line(type="hidden", name="_subject", value="New submission!")
+              input#story_number(type="hidden", name="story_number", value="")
+              input#story_language(type="hidden", name="story_language", value="")
+              input#md_title(type="hidden", name="md_title", value="")
+              input#story_translation(type="hidden", name="story_translation", value="")
+              input(type="submit", value="Submit Translation")
 
   #dynamic_content
     #messages
@@ -147,15 +145,16 @@ block content
     #number_of_sections(style="display:none;") &nbsp;
     #output(style="display:none")
       textarea#translation_output(rows="10")
-    
-  #review_sub.tooltip(style="display:none")
-    a.call-modal(href="#modal-review", onclick="review_translation()")
-      button#rev_btn(type="button", accesskey="g") Review submission
+    #review_sub
+      button.call-modal.btn.btn-primary(onclick="review_translation()") Review submission
 
 block scripts
-  script(src="js/stories.js", type="text/javascript")
-  script(src="js/translator.js", type="text/javascript")
-  script(src="js/completed.js", type="text/javascript")
-  script(type="text/javascript") window.addEventListener('load', function(e) { window.applicationCache.addEventListener('updateready', function(e) { if (window.applicationCache.status == window.applicationCache.UPDATEREADY) { window.applicationCache.swapCache(); window.location.reload(); } }, false); }, false);
-  script(type="text/javascript", src="js/modal.js")
+  script(src="/lib/gasp/stories.js", type="text/javascript")
+  script(src="/lib/gasp/translator.js", type="text/javascript")
+  script(src="/lib/gasp/completed.js", type="text/javascript")
+  //
+    script(type="text/javascript") window.addEventListener('load', function(e) { window.applicationCache.addEventListener('updateready', function(e) { if (window.applicationCache.status == window.applicationCache.UPDATEREADY) { window.applicationCache.swapCache(); window.location.reload(); } }, false); }, false);
+  script(type="text/javascript", src="/lib/readium-js_all.js")
+  script(type="text/javascript", src="/lib/bootstrap.min.js")
+  script(type="text/javascript", src="/lib/owl.carousel.min.js")
   script(type="text/javascript") story_api();
