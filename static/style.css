@@ -1,3 +1,24 @@
 #viewport, .book-frame, .reflowable-content-frame {
   height: 600px;
 }
+
+.navbar .navbar-nav>li>div {
+  padding: 8px 12px;
+  margin: 12.5px 6px;
+  border: 1px solid transparent;
+}
+
+.navbar .editable {
+  width: auto;
+}
+
+.navbar .editable[placeholder]:empty:before {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+.owl-carousel .owl-item img {
+  max-height: 300px;
+  max-height: 40vh;
+  width: auto !important;
+}

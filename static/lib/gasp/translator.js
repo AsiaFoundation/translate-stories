@@ -27,7 +27,7 @@ function translate_story(nav) {
 
   content_div = "      <table id=\"content_table\">\n        <tr><th style='width:5%'></th><th style='width:30%'>original asp story</th><th style='width:65%'>your translation</th></tr><tr>\n          <td><img class=\"thumbnail\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg\"></td>\n          <td id=\"title\">Title: <i>" + title + "</i></td>\n          <td id=\"story_tgt_title\"><input type=\"text\" id=\"title_text\" /></td></tr><tr>\n";
 
-  $(messages).html("Now translating story #" + idx + " - <i>" + title + "</i> into: <span class=\"editable\" contenteditable=\"true\" id=\"language\" placeholder=\"Target language\"></span>");
+  messages.html("Now translating story #" + idx + " - <i>" + title + "</i> into: <span class=\"editable\" contenteditable=\"true\" id=\"language\" placeholder=\"Target language\"></span>");
   var language = $("#language");
   language.on("input", function() {
     localStorage['gtr_l'] = language.html();
@@ -55,19 +55,38 @@ function translate_story(nav) {
 
   check_lang();
 
+
+  story_table = $("#story_table").html("");
+
   for (var i = 0; i < sections.length; i++) {
     page_number = i + 2;
     if (page_number < 10) {
       page_number = "0" + page_number;
     }
-    content_div = content_div + "          <td><img class=\"thumbnail\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg\"></td>\n          <td id=\"story_src_" + i + "\">" + json[n].s[i][page_number] + "</td>\n          <td><textarea id=\"story_tgt_" + i + "\"></textarea></td>        </tr>"
+
+    var page = $("<div>").addClass("item");
+    page.append($("<img>")
+      .attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
+      .addClass("thumbnail")
+    );
+    page.append($("<span id='story_src_" + i + "'>").text(json[n].s[i][page_number]));
+    page.append($("<textarea id='story_tgt_" + i + "'>"));
+    story_table.append(page);
   }
 
   translang = "Translation: " + translator.html() + "<br>* Language: " + language.html();
 
-  story_table = $("#story_table");
+  story_table.owlCarousel({
+    items: 1,
+    maxItems: 1,
+    center: true,
+    margin: 20,
+    nav: true,
+    loop: false
+  });
+
   attribution_row = "          <td></td>\n          <td id=\"attribution\">" + attribution.replace(/\n/g, "<br>") + "</td>\n          <td>" + attribution.replace(/\n/g, "<br>").replace(/Language: .*/, translang) + "</td>        </tr>";
-  story_table.html(content_div + attribution_row + "      </table>");
+  $("#attribution").html(attribution_row);
 
   nav_buttons.css({ display: '' });
   idx_store.html(idx);

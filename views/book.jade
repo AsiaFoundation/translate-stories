@@ -3,14 +3,18 @@ extends ./layout.jade
 block content
   link(rel="stylesheet", type="text/css", href="/lib/owl.carousel.min.css")
   link(rel="stylesheet", type="text/css", href="/lib/gasp/translator.css")
+  
+  nav.navbar.navbar-default.navbar-fixed-top
+    .container
+      .navbar-header
+      ul.nav.navbar-nav
+        li
+          a(href="#") Example
+        li
+          #messages To get started, press the Translate! button below.
 
-  #frametop
+  #frametop.hide
     #status_bar
-      button.call-modal(data-toggle="modal", data-target="#modal-about") About
-      span.dot •
-      button.call-modal(data-toggle="modal", data-target="#modal-help") Help
-      span#nav_buttons(style="display:none")
-      span.dot •
       button#prev(accesskey="p", title="Previous story", onclick="translate_story('prev')")
         img(src="previous.png")
       span.dot •
@@ -19,85 +23,6 @@ block content
       span.dot •
       button#next(accesskey="n", title="Next story", onclick="translate_story(0)")
         img(src="next.png")
-
-  section#modal-about.modal.fade(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
-    .modal-dialog
-      .modal-content
-        header.modal-header
-          button.close(type="button", data-dismiss="modal", aria-label="Close")
-            span(aria-hidden="true") &times;
-          h4#modal-label About
-
-        .modal-body
-          p
-            span Global-ASP Translator - Translation system for the&nbsp;
-            a(href="https://global-asp.github.io/") Global African Storybook Project
-          p
-            span This is intended to be an easy-to-use and accessible translation system to help automate the process of translating&nbsp;
-            a(href="http://africanstorybook.org/") African Storybook Project
-            span &nbsp;stories into other languages for&nbsp;
-            a(href="https://global-asp.github.io/") Global-ASP
-            span .
-          p It has deliberately been kept as minimal as possible to allow translators to focus on the work (and joy) of translation with as little distraction as possible.
-          p Stories are presented in order of length, from shortest to longest, to make the barrier to entry as low as possible for anyone who would like to participate in the project and contribute a translation. If you can only translate a few sentences or a few words, you can still help!
-          p
-            span All of the ASP and Global-ASP stories are&nbsp;
-            a(href="http://creativecommons.org/") Creative Commons-licensed
-            span . By contributing a translation to the project you agree to release your work under a Creative Commons license (either&nbsp;
-            a(href="https://creativecommons.org/licenses/by/4.0/") CC-BY
-            span &nbsp;or&nbsp;
-            a(href="https://creativecommons.org/licenses/by-nc/4.0/") CC-BY-NC
-            span ) in accordance with the license of the original story.
-
-  section#modal-help.modal.fade(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
-    .modal-dialog.modal-lg
-      .modal-content
-        header.modal-header
-          button.close(type="button", data-dismiss="modal", aria-label="Close")
-            span(aria-hidden="true") &times;
-          h4#modal-label Help
-
-        .modal-body
-          p
-            span To begin translating stories, just click on the "Translate!" button at the bottom of the page. This will open up a story from the&nbsp;
-            a(href="http://africanstorybook.org/") African Storybook Project
-            span &nbsp;collection, with empty space on the right for you to enter your translation.
-          p
-            span Make sure to enter your name and the language you are translating into at the top of the page. Your work will be released under the same&nbsp;
-            a(href="http://creativecommons.org/") Creative Commons
-            span &nbsp;license as the original story, and you will be credited for attribution using the name you select here. You can edit either field at any time, for example if you want to change the way you are attributed or translate into a different language.
-          p Within the main translation area of the page, images from each page of the story will appear on the left side accompanied by the original text of that page. On the far right side is a box where you can input your translation. You can hover over the image thumbnails to see larger versions of the pictures.
-          p
-            span If you have completed part of a translation but want to move on to another story or close the window, the text you have entered in each box will be saved automatically on your local machine so you can return to it later. Note that it will&nbsp;
-            strong NOT
-            span &nbsp;be submitted until you click on the "Review submission" button and then finally scroll down and click on "Submit Translation" to send it to&nbsp;
-            a(href="https://global-asp.github.io") Global-ASP
-            span &nbsp;for inclusion in the project.
-          p When you click on the "Review submission" button, a window will appear on screen containing the formatted text of your translation alongside the original story images. If there is anything you would like to add or change you can exit this window by clicking on the close button in the top right corner and make your changes in the translation area before submitting. To go back to the review window, click on the "Continue reviewing" button at the bottom of the page.
-          p
-            span Once you are satisfied with your translation in the Review window, click on the "Submit Translation" button to send it for inclusion in&nbsp;
-            a(href="https://global-asp.github.io") Global-ASP
-            span . You can optionally include your email address in the box above the submit button if you would like us to be able to contact you about your translation.
-          
-          h3 Navigation
-          p The "Next" and "Previous" arrow buttons located at the top of the page can be used to navigate through the available stories in the collection. All work is saved in local storage, so you can feel free to browse the collection for stories you would like to translate, even if you have already begun working on another translation.
-          p Click on the "Random Story" button to visit a random story from the collection. There are over 300 stories in the collection, all of different lengths, styles, and subject matter, so go ahead and browse around until you see something you would be comfortable translating!
-        
-          h3 Linking to stories
-          p
-            span You can link directly to individual stories for translation using the Translator's simple API. Just add&nbsp;
-            code ?
-            span &nbsp;and the story's&nbsp;
-            a(href="https://global-asp.github.io/stories/master.html") index number
-            span &nbsp;to the end of the Translator url. For example:
-          ul
-            li
-              code https://global-asp.github.io/translator/?0030
-              span &nbsp;(this links to the translation template for story #0030)
-          p
-            span Try it out by clicking on&nbsp;
-            a(href="https://global-asp.github.io/translator/?0030") this link
-            span !
 
   section#modal-review.modal.fade(tabindex="-1", role="dialog", aria-labelledby="modal-label", aria-hidden="true")
     .modal-dialog
@@ -126,15 +51,12 @@ block content
               input(type="submit", value="Submit Translation")
 
   #dynamic_content
-    #messages
-      span Welcome to the Global-ASP Translator!
-      br
-      span To get started, press the Translate! button below.
     #translated_msg(style="display:none") &nbsp;
     #translator_div(style="display:none")
       span Translated by:&nbsp;
       span#translator.editable(contenteditable="true", oninput="localStorage['gtr_a']=this.innerHTML", placeholder="Your name")
-    #story_table &nbsp;
+    #story_table.owl-carousel.owl-theme
+    #attribution
     #translate_button
       button(type="button", accesskey="t", onclick="translate_story('first')") Translate!
 
