@@ -72,7 +72,7 @@ function translate_story(nav) {
       )
     );
     page.append($("<span id='story_src_" + i + "'>").text(json[n].s[i][page_number]));
-    page.append($("<textarea id='story_tgt_" + i + "'>"));
+    page.append($("<div class='form-group'><label>Your translation</label><textarea id='story_tgt_" + i + "' class='form-control'></textarea></div>"));
     story_table.append(page);
   }
 
