@@ -8,7 +8,7 @@ block content
     .container
       .navbar-header
       ul.nav.navbar-nav
-        li
+        li.hide
           a(href="#") Example
         li
           #messages To get started, press the Translate! button below.
@@ -50,7 +50,7 @@ block content
               input#story_translation(type="hidden", name="story_translation", value="")
               input(type="submit", value="Submit Translation")
 
-  #dynamic_content
+  #dynamic_content(style="margin-top: 70px;")
     #translated_msg(style="display:none") &nbsp;
     #translator_div(style="display:none")
       span Translated by:&nbsp;

@@ -85,8 +85,8 @@ function translate_story(nav) {
     loop: false
   });
 
-  attribution_row = "          <td></td>\n          <td id=\"attribution\">" + attribution.replace(/\n/g, "<br>") + "</td>\n          <td>" + attribution.replace(/\n/g, "<br>").replace(/Language: .*/, translang) + "</td>        </tr>";
-  $("#attribution").html(attribution_row);
+  $("#attribution").html(attribution.replace(/\*/g, '<br/>*'));
+
 
   nav_buttons.css({ display: '' });
   idx_store.html(idx);
