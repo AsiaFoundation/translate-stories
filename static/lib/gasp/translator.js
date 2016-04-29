@@ -27,7 +27,7 @@ function translate_story(nav) {
 
   content_div = "      <table id=\"content_table\">\n        <tr><th style='width:5%'></th><th style='width:30%'>original asp story</th><th style='width:65%'>your translation</th></tr><tr>\n          <td><img class=\"thumbnail\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg\"></td>\n          <td id=\"title\">Title: <i>" + title + "</i></td>\n          <td id=\"story_tgt_title\"><input type=\"text\" id=\"title_text\" /></td></tr><tr>\n";
 
-  messages.html("Now translating story #" + idx + " - <i>" + title + "</i> into: <span class=\"editable\" contenteditable=\"true\" id=\"language\" placeholder=\"Target language\"></span>");
+  messages.html("Now translating story #" + idx + " - <i>" + title + "</i> into: <select id='language'><option>Spanish</option></select>");
   var language = $("#language");
   language.on("input", function() {
     localStorage['gtr_l'] = language.html();
@@ -65,9 +65,11 @@ function translate_story(nav) {
     }
 
     var page = $("<div>").addClass("item");
-    page.append($("<img>")
-      .attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
-      .addClass("thumbnail")
+    page.append($("<div class='img-holder'>").append(
+      $("<img>")
+        .attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
+        .addClass("thumbnail")
+      )
     );
     page.append($("<span id='story_src_" + i + "'>").text(json[n].s[i][page_number]));
     page.append($("<textarea id='story_tgt_" + i + "'>"));

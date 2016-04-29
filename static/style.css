@@ -17,8 +17,19 @@
   padding: 8px;
 }
 
+.owl-item .img-holder {
+  text-align: center;
+}
+
 .owl-carousel .owl-item img {
   max-height: 300px;
   max-height: 40vh;
   width: auto !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#framebottom {
+  height: auto !important;
+  padding-bottom: 5px;
 }

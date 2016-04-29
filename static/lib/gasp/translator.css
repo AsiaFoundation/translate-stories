@@ -21,9 +21,6 @@ overflow: auto;
   overflow: hidden;
 }
 #dynamic_content {
-  position: fixed;
-  top: 105px;
-  bottom: 100px;
   overflow: auto;
 }
 #status_bar {
