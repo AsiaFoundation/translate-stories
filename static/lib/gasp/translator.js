@@ -25,8 +25,6 @@ function translate_story(nav) {
 
   sections = json[n].s;
 
-  content_div = "      <table id=\"content_table\">\n        <tr><th style='width:5%'></th><th style='width:30%'>original asp story</th><th style='width:65%'>your translation</th></tr><tr>\n          <td><img class=\"thumbnail\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg\"></td>\n          <td id=\"title\">Title: <i>" + title + "</i></td>\n          <td id=\"story_tgt_title\"><input type=\"text\" id=\"title_text\" /></td></tr><tr>\n";
-
   messages.html("Now translating story #" + idx + " - <i>" + title + "</i> into: <select id='language'><option>Spanish</option></select>");
   var language = $("#language");
   language.on("input", function() {
@@ -58,6 +56,21 @@ function translate_story(nav) {
 
   story_table = $("#story_table").html("");
 
+  var cover = $("<div>").addClass("item");
+  cover.append($("<div class='img-holder'>").append(
+    $('<img/>')
+      .attr('src', "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg")
+    )
+  );
+  cover.append(
+    $('<label>').text('Title: ' + title)
+  );
+  cover.append($('<br/>'));
+  cover.append(
+    $('<input id="title_text"/>')
+  );
+  story_table.append(cover);
+
   for (var i = 0; i < sections.length; i++) {
     page_number = i + 2;
     if (page_number < 10) {
@@ -68,13 +81,17 @@ function translate_story(nav) {
     page.append($("<div class='img-holder'>").append(
       $("<img>")
         .attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
-        .addClass("thumbnail")
       )
     );
     page.append($("<span id='story_src_" + i + "'>").text(json[n].s[i][page_number]));
     page.append($("<div class='form-group'><label>Your translation</label><textarea id='story_tgt_" + i + "' class='form-control'></textarea></div>"));
     story_table.append(page);
   }
+  story_table.append(
+    $("<div class='item'></div>").append(
+      $('<button>').text('Review submission').click(review_translation)
+    )
+  );
 
   translang = "Translation: " + translator.html() + "<br>* Language: " + language.html();
 
@@ -140,6 +157,7 @@ function review_translation() {
 
   content_div = "      <table id=\"content_table\">\n        <tr><th style='width:25%'></th><th style='width:65%'>your translation</th></tr><tr>\n          <td><img class=\"revthumb\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg\"></td>\n          <td><em>" + tr_title + "</em></td></tr><tr>\n";
 
+
   format_content = "# " + tr_title + "\n\n##\n";
   for (var i = 0; i < number_of_sections; i++) {
     tr_text = $("#story_tgt_" + i).val();
@@ -160,11 +178,8 @@ function review_translation() {
 
   $("#submit_form").css({ display: '' });
 
-  format_attribution = "<ul>" + attribution.replace(/Language: .*/, "") + translang.replace(/\n/g, "<br>") + "</ul>";
-  format_attribution = format_attribution.replace(/\* (.*?)</g, "<li>$1</li><").replace(/<br>/g, "");
-
   var review_table = $("#review_table");
-  review_table.html(content_div + "<tr><td></td><td>" + format_attribution + "</td></tr></table>");
+  review_table.html(content_div + "</table>");
 
   prepare_submission();
 
@@ -195,11 +210,11 @@ function prepare_submission() {
   var sub = $("#subject_line");
   var rev = $("#review_sub");
   sub.val('New translation: #' + $("#idx").html() + ', "' + $("#title i").html()+ '" into ' + $("#language").html() + " by " + $("#translator").html());
-  $("#name_line").val(window.translator.html());
-  $("#story_number").val(window.idx);
-  $("#story_language").val(window.language.html());
-  $("#md_title").val(window.idx + "_" + window.title_text.val().toLowerCase().replace(/ /g, "-").replace(/[\!\?,\.:'¿¡`]/g, "") + ".md");
-  $("#story_translation").val(window.translation_output.val());
+  $("#name_line").val($('#translator').html());
+  $("#story_number").val(idx);
+  $("#story_language").val($('#language').html());
+  $("#md_title").val(idx + "_" + $('#title_text').text().toLowerCase().replace(/ /g, "-").replace(/[\!\?,\.:'¿¡`]/g, "") + ".md");
+  $("#story_translation").val($('#translation_output').val());
   rev.css({ width: "80%" });
   rev.removeClass("tooltip");
   $("#rev_msg").html("If you are satisfied with your translation, press the submit button below to send it for inclusion:");
