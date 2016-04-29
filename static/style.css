@@ -29,7 +29,38 @@
   margin-right: auto;
 }
 
+.owl-carousel .owl-item input {
+  border: 2px solid #ccc;
+  padding: 4px;
+  font-size: 120%;
+}
+
 #framebottom {
   height: auto !important;
   padding-bottom: 5px;
+}
+
+.owl-nav > div {
+  display: inline-block;
+  padding: 4px;
+  border: 1px solid #444;
+  border-radius: 3px;
+  margin-right: 20px;
+  background-color: #39d;
+  color: #fff;
+}
+
+#attribution {
+  border-top: 1px solid #000;
+  margin-top: 15px;
+  padding: 10px;
+}
+
+.navbar-default {
+  background-color: #39d;
+  color: #fff;
+}
+
+.navbar-default select {
+  color: #000;
 }
