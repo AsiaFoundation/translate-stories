@@ -66,7 +66,7 @@ textarea {
   width: 250px;
 }
 #story_table {
-  width: 80%;
+  width: 100%;
 }
 #story_img {
   width: 10%;
@@ -81,7 +81,6 @@ textarea {
   background-color: white;
   display: inline-block;
   font-weight: bold;
-  width: 15em;
 }
 .editable[placeholder]:empty:before {
   content: attr(placeholder);

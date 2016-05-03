@@ -1,5 +1,7 @@
 // window.applicationCache.swapCache();
 
+var carr;
+
 function translate_story(nav) {
   var story_table = $("#story_table");
   var messages = $("#messages");
@@ -67,7 +69,7 @@ function translate_story(nav) {
   );
   cover.append($('<br/>'));
   cover.append(
-    $('<input id="title_text"/>')
+    $('<input id="title_text" class="form-control" placeholder="Your translation"/>')
   );
   story_table.append(cover);
 
@@ -84,24 +86,32 @@ function translate_story(nav) {
       )
     );
     page.append($("<span id='story_src_" + i + "'>").text(json[n].s[i][page_number]));
-    page.append($("<div class='form-group'><label>Your translation</label><textarea id='story_tgt_" + i + "' class='form-control'></textarea></div>"));
+    page.append($("<div class='form-group'><textarea id='story_tgt_" + i + "' class='form-control' placeholder='Your translation'></textarea></div>"));
     story_table.append(page);
   }
   story_table.append(
-    $("<div class='item'></div>").append(
-      $('<button>').text('Review submission').click(review_translation)
+    $("<div class='item'></div>").css({ textAlign: 'center' }).append(
+      $('<button class="done">').text('Review submission').click(review_translation)
     )
   );
 
   translang = "Translation: " + translator.html() + "<br>* Language: " + language.html();
 
-  story_table.owlCarousel({
+  carr = story_table.owlCarousel({
     items: 1,
     maxItems: 1,
     center: true,
     margin: 20,
-    nav: true,
+    nav: false,
     loop: false
+  });
+
+  $("#previouser").click(function() {
+    carr.trigger('prev.owl.carousel');
+  });
+
+  $("#nexter").click(function () {
+    carr.trigger('next.owl.carousel');
   });
 
   $("#attribution").html(attribution.replace(/\*/g, '<br/>*'));

@@ -56,6 +56,9 @@ block content
       span Translated by:&nbsp;
       span#translator.editable(contenteditable="true", oninput="localStorage['gtr_a']=this.innerHTML", placeholder="Your name")
     #story_table.owl-carousel.owl-theme
+    button#previouser.pull-left &larr;
+    button#nexter.pull-right &rarr;
+    .clearfix
     #attribution
     #translate_button
       button(type="button", accesskey="t", onclick="translate_story('first')") Translate!
