@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" xml:lang="en" unique-identifier="pub-id" prefix="rendition: http://www.idpf.org/vocab/rendition/#" dir="ltr">
+	
+	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+			<dc:title>Little Socks</dc:title>
+			<dc:creator id="creator01">Books for Asia</dc:creator>
+		<meta refines="#creator01" property="role" scheme="marc:relators" id="role">aut</meta>
+			<dc:language>en</dc:language>
+			<dc:identifier id="pub-id">urn:uuid:9d3e3e60-a053-11e5-ac53-0002a5d5c53c</dc:identifier>
+		<meta property="dcterms:modified">2015-11-26T06:40:00Z</meta>
+			<dc:date>2016</dc:date>
+			<dc:publisher>The Asia Foundation Publishing</dc:publisher>
+			<dc:rights>Copyright &#169; The Asia Foundation</dc:rights>
+		<meta property="rendition:layout">reflowable</meta>
+		<meta property="rendition:orientation">landscape</meta>
+		<meta property="rendition:spread">none</meta>
+		<meta name="cover" content="cover_image"/>
+	</metadata>
+
+	<manifest>
+		<!-- Package Items -->
+		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml"/>
+		<item id="toc" properties="nav" href="nav.xhtml" media-type="application/xhtml+xml"/>
+		<!-- Pages -->
+		<item id="cover" href="cover.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page01" href="page01.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page02" href="page02.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page03" href="page03.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page04" href="page04.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page05" href="page05.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page06" href="page06.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page07" href="page07.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page08" href="page08.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page09" href="page09.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page10" href="page10.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page11" href="page11.xhtml" media-type="application/xhtml+xml"/>
+		<item id="page12" href="page12.xhtml" media-type="application/xhtml+xml"/>
+		<!-- Images -->
+		<item id="imgcover" href="images/cover.png" media-type="image/png"/>
+		<item id="img01" href="images/Page01.wide.png" media-type="image/png"/>
+		<item id="img02" href="images/Page02.wide.png" media-type="image/png"/>
+		<item id="img03" href="images/Page03.wide.png" media-type="image/png"/>
+		<item id="img04" href="images/Page04.wide.png" media-type="image/png"/>
+		<item id="img05" href="images/Page05.wide.png" media-type="image/png"/>
+		<item id="img06" href="images/Page06.wide.png" media-type="image/png"/>
+		<item id="img07" href="images/Page07.wide.png" media-type="image/png"/>
+		<item id="img08" href="images/Page08.wide.png" media-type="image/png"/>
+		<item id="img09" href="images/Page09.wide.png" media-type="image/png"/>
+		<item id="img10" href="images/Page10.wide.png" media-type="image/png"/>
+		<item id="img11" href="images/Page11.wide.png" media-type="image/png"/>
+		<item id="img12" href="images/Page12.wide.png" media-type="image/png"/>
+		<!-- Fonts -->
+		<item id="font01" href="fonts/JosefinSans-Bold.ttf" media-type="applications/x-font-ttf"/>
+		<!-- CSS -->
+		<item id="css-001" href="css/stylesheet.css" media-type="text/css"/>
+	</manifest>
+
+	<spine page-progression-direction="ltr" toc="ncx">
+		<itemref idref="cover" linear="yes"/>
+		<itemref idref="page01" linear="yes"/>
+		<itemref idref="page02" linear="yes"/>
+		<itemref idref="page03" linear="yes"/>
+		<itemref idref="page04" linear="yes"/>
+		<itemref idref="page05" linear="yes"/>
+		<itemref idref="page06" linear="yes"/>
+		<itemref idref="page07" linear="yes"/>
+		<itemref idref="page08" linear="yes"/>
+		<itemref idref="page09" linear="yes"/>
+		<itemref idref="page10" linear="yes"/>
+		<itemref idref="page11" linear="yes"/>
+		<itemref idref="page12" linear="yes"/>
+	</spine>
+
+	<guide>
+		<reference type="text" title="Little Socks" href="page01.xhtml"/>
+	</guide>
+</package>
