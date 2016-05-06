@@ -1,12 +1,16 @@
-async function home (ctx) {
+function home (ctx) {
   ctx.render('app');
 }
 
-async function book (ctx) {
+function book (ctx) {
   ctx.render('book');
 }
 
-async function translate (ctx) {
+function epub (ctx) {
+  ctx.render('epub');
+}
+
+function translate (ctx) {
   console.log(ctx.body);
   ctx.redirect('/book');
 }
@@ -14,5 +18,6 @@ async function translate (ctx) {
 module.exports = {
   home: home,
   book: book,
+  epub: epub,
   translate: translate
 };

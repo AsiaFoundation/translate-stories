@@ -39,6 +39,7 @@ app.use(convert(csrf.middleware));
 
 router
   .get('/', routes.home)
+  .get('/epub', routes.epub)
   .get('/book', routes.book)
   .post('/translate', routes.translate);
 

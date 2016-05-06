@@ -38,11 +38,10 @@ app.use(logger());
 csrf(app);
 app.use(convert(csrf.middleware));
 
-router.get('/', routes.home).get('/book', routes.book).post('/translate', routes.translate);
+router.get('/', routes.home).get('/epub', routes.epub).get('/book', routes.book).post('/translate', routes.translate);
 
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(process.env.PORT || 8080);
 
 module.exports = app;
-

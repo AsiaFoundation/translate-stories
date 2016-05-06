@@ -30,7 +30,7 @@ function translate_story(nav) {
   messages.html("Now translating story #" + idx + " - <i>" + title + "</i> into: <select id='language'><option>Spanish</option></select>");
   var language = $("#language");
   language.on("input", function() {
-    localStorage['gtr_l'] = language.html();
+    localStorage['gtr_l'] = language.val();
     check_lang();
   });
   if (localStorage["gtr_l"]) {
