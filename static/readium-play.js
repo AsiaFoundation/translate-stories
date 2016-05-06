@@ -188,20 +188,20 @@ require(["readium_shared_js/globalsSetup"], function () {
 
                 var ebookURL = "EPUB/sample";
 
-                var pages = 1;
-
                 readium.openPackageDocument(
                     ebookURL,
                     function(packageDocument, options) {
                       booktitle = options.metadata.title;
+                      var maxPages = packageDocument.spineLength();
+                      $("#messages").text("Loaded 0 / " + maxPages);
                       var loadpages = setInterval(function() {
                         readium.reader.openPageRight();
-                        pages++;
-                        if (pages > wholepages.length + 10) {
+                        $("#messages").text("Loaded " + wholepages.length + " / " + maxPages);
+                        if (wholepages.length >= maxPages) {
                           clearInterval(loadpages);
                           setStory();
                         }
-                      }, 250);
+                      }, 150);
                     },
                     openPageRequest
                 );
@@ -222,7 +222,7 @@ function setStory(nav) {
   var translate_button = $("#translate_button");
 
   idx = -1;
-  title = 'Blank Title';
+  title = booktitle;
   attribution = '';
   sections = wholepages;
 
