@@ -58,6 +58,7 @@ function translate_story(nav) {
 
   storytable = $("<div>");
   $("#story_table").html("").append(storytable);
+  $("#previouser, #nexter").off("click");
 
   var cover = $("<div>").addClass("item");
   cover.append($("<div class='img-holder'>").append(
@@ -74,21 +75,28 @@ function translate_story(nav) {
   );
   storytable.append(cover);
 
+  var page_offset = 2;
+
   for (var i = 0; i < sections.length; i++) {
-    page_number = i + 2;
+    page_number = i + page_offset;
     if (page_number < 10) {
       page_number = "0" + page_number;
     }
 
-    var page = $("<div>").addClass("item");
-    page.append($("<div class='img-holder'>").append(
-      $("<img>")
-        .attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
-      )
-    );
-    page.append($("<span id='story_src_" + i + "'>").text(json[n].s[i][page_number]));
-    page.append($("<div class='form-group'><textarea id='story_tgt_" + i + "' class='form-control' placeholder='Your translation'></textarea></div>"));
-    storytable.append(page);
+    var sentences = json[n].s[i][page_number].split(/[\.\?]”?\s/g);
+
+    for (var s = 0; s < sentences.length; s++) {
+      var pageText = sentences[s];
+      var page = $("<div>").addClass("item");
+      page.append($("<div class='img-holder'>").append(
+        $("<img>")
+          .attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
+        )
+      );
+      page.append($("<span id='story_src_" + i + "'>").text(pageText));
+      page.append($("<div class='form-group'><textarea id='story_tgt_" + i + "' class='form-control' placeholder='Your translation'></textarea></div>"));
+      storytable.append(page);
+    }
   }
   storytable.append(
     $("<div class='item'></div>").css({ textAlign: 'center' }).append(
