@@ -65,7 +65,7 @@ textarea {
 .thumbnail:hover {
   width: 250px;
 }
-#story_table {
+#story_table, #story_table > div {
   width: 100%;
 }
 #story_img {

@@ -56,7 +56,8 @@ function translate_story(nav) {
   check_lang();
 
 
-  story_table = $("#story_table").html("");
+  storytable = $("<div>");
+  $("#story_table").html("").append(storytable);
 
   var cover = $("<div>").addClass("item");
   cover.append($("<div class='img-holder'>").append(
@@ -71,7 +72,7 @@ function translate_story(nav) {
   cover.append(
     $('<input id="title_text" class="form-control" placeholder="Your translation"/>')
   );
-  story_table.append(cover);
+  storytable.append(cover);
 
   for (var i = 0; i < sections.length; i++) {
     page_number = i + 2;
@@ -87,9 +88,9 @@ function translate_story(nav) {
     );
     page.append($("<span id='story_src_" + i + "'>").text(json[n].s[i][page_number]));
     page.append($("<div class='form-group'><textarea id='story_tgt_" + i + "' class='form-control' placeholder='Your translation'></textarea></div>"));
-    story_table.append(page);
+    storytable.append(page);
   }
-  story_table.append(
+  storytable.append(
     $("<div class='item'></div>").css({ textAlign: 'center' }).append(
       $('<button class="done">').text('Review submission').click(review_translation)
     )
@@ -97,7 +98,7 @@ function translate_story(nav) {
 
   translang = "Translation: " + translator.html() + "<br>* Language: " + language.html();
 
-  carr = story_table.owlCarousel({
+  carr = storytable.owlCarousel({
     items: 1,
     maxItems: 1,
     center: true,
