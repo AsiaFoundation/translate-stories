@@ -40,6 +40,7 @@ block content
 
           #submit_form(style="display:none")
             form(action="/translate", method="post")
+              input(type="hidden", name="_csrf", value="#{csrfToken}")
               input#name_line(type="hidden", name="name")
               input#email(type="text", name="_replyto", placeholder="Your email (optional)", oninput="localStorage['gtr_email']=this.value")
               input#thanks(type="hidden", name="_next", value="/translator/thanks.html")

@@ -1,17 +1,28 @@
+const Book = require('../models/book.js');
+
 function home (ctx) {
   ctx.render('app');
 }
 
 function book (ctx) {
-  ctx.render('book');
+  ctx.render('book', {
+    csrfToken: ctx.csrf
+  });
 }
 
 function epub (ctx) {
   ctx.render('epub');
 }
 
-function translate (ctx) {
-  console.log(ctx.body);
+async function translate (ctx) {
+  var body = ctx.request.body;
+  var b = new Book({
+    title: body.story_number,
+    language: body.story_language,
+    translator: body._subject,
+    pages: body.story_translation
+  });
+  await b.save();
   ctx.redirect('/book');
 }
 

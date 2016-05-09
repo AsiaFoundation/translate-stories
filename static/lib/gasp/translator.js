@@ -228,10 +228,10 @@ function random_story() {
 function prepare_submission() {
   var sub = $("#subject_line");
   var rev = $("#review_sub");
-  sub.val('New translation: #' + $("#idx").html() + ', "' + $("#title i").html()+ '" into ' + $("#language").html() + " by " + $("#translator").html());
-  $("#name_line").val($('#translator').html());
+  sub.val('New translation: #' + idx + ', "' + $("#messages i").text() + '" into ' + $("#language").val() + " by " + $("#translator").val());
+  $("#name_line").val($('#translator').val());
   $("#story_number").val(idx);
-  $("#story_language").val($('#language').html());
+  $("#story_language").val($('#language').val());
   $("#md_title").val(idx + "_" + $('#title_text').text().toLowerCase().replace(/ /g, "-").replace(/[\!\?,\.:'¿¡`]/g, "") + ".md");
   $("#story_translation").val($('#translation_output').val());
   rev.css({ width: "80%" });
