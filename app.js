@@ -5,7 +5,7 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const convert = require('koa-convert');
 const session = require('koa-generic-session');
-const MongoStore = require('koa-generic-session-mongo');
+const MongooseStore = require('koa-session-mongoose');
 const jade = require('koa-jade-render');
 const logger = require('koa-logger');
 const router = require('koa-router')();
@@ -29,9 +29,9 @@ app.use(jade(path.join(__dirname, 'views')));
 app.use(convert(kstatic(__dirname + '/static')));
 
 app.keys = ['wkpow3jocijoid3jioj3', 'cekopjpdjjo3jcjio3jc'];
-app.use(convert(session({
-  store: new MongoStore()
-})));
+app.use(session({
+  store: new MongooseStore()
+}));
 
 app.use(logger());
 csrf(app);
