@@ -28,10 +28,10 @@ app.use(compression());
 app.use(jade(path.join(__dirname, 'views')));
 app.use(convert(kstatic(__dirname + '/static')));
 
-app.keys = ['wkpow3jocijoid3jioj3', 'cekopjpdjjo3jcjio3jc'];
-app.use(session({
+app.keys = [process.env.KEY_1 || 'wkpow3jocijoid3jioj3', process.env.KEY_2 || 'cekopjpdjjo3jcjio3jc'];
+app.use(convert(session({
   store: new MongooseStore()
-}));
+})));
 
 app.use(logger());
 csrf(app);

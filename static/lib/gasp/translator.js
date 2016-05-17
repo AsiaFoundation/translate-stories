@@ -27,7 +27,9 @@ function translate_story(nav) {
 
   sections = json[n].s;
 
-  messages.html("Now translating story #" + idx + " - <i>" + title + "</i> into: <select id='language'><option>Spanish</option></select>");
+  messages
+    .removeClass('translate')
+    .html(_("Story ID:") + " #" + idx + " - <i>" + title + "</i> | " + _('Language:') +  " <select id='language'><option>Spanish</option></select>");
   var language = $("#language");
   language.on("input", function() {
     localStorage['gtr_l'] = language.val();
@@ -46,12 +48,14 @@ function translate_story(nav) {
   next_story = parseInt(n) + 1;
   prev_story = parseInt(n) - 1;
 
-  $(next)[0].onclick = function() {
-    translate_story(next_story);
-  };
-  $(prev)[0].onclick = function() {
-    translate_story(prev_story);
-  };
+  if ($(next)[0] && $(prev)[0]) {
+    $(next)[0].onclick = function() {
+      translate_story(next_story);
+    };
+    $(prev)[0].onclick = function() {
+      translate_story(prev_story);
+    };
+  }
 
   check_lang();
 
@@ -67,11 +71,12 @@ function translate_story(nav) {
     )
   );
   cover.append(
-    $('<label>').text('Title: ' + title)
+    $('<label>').text(_('Title:') + ' ' + title)
   );
   cover.append($('<br/>'));
   cover.append(
-    $('<input id="title_text" class="form-control" placeholder="Your translation"/>')
+    $('<input id="title_text" class="form-control"/>')
+      .attr('placeholder', _('Your translation'))
   );
   storytable.append(cover);
 
@@ -94,13 +99,18 @@ function translate_story(nav) {
         )
       );
       page.append($("<span id='story_src_" + i + "'>").text(pageText));
-      page.append($("<div class='form-group'><textarea id='story_tgt_" + i + "' class='form-control' placeholder='Your translation'></textarea></div>"));
+      page.append(
+        $("<div class='form-group'></div>").append(
+          $("<textarea id='story_tgt_" + i + "' class='form-control'></textarea>")
+            .attr('placeholder', _('Your translation'))
+        )
+      );
       storytable.append(page);
     }
   }
   storytable.append(
     $("<div class='item'></div>").css({ textAlign: 'center' }).append(
-      $('<button class="done">').text('Review submission').click(review_translation)
+      $('<button class="done">').text(_('Review submission')).click(review_translation)
     )
   );
 
@@ -174,9 +184,7 @@ function review_translation() {
   translation_output = $("#translation_output");
   var container = $("#container");
 
-  content_div = "      <table id=\"content_table\">\n        <tr><th style='width:25%'></th><th style='width:65%'>your translation</th></tr><tr>\n          <td><img class=\"revthumb\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg\"></td>\n          <td><em>" + tr_title + "</em></td></tr><tr>\n";
-
-
+  content_div = "      <table id=\"content_table\">\n        <tr><th style='width:25%'></th><th style='width:65%'>" + _('your translation') + "</th></tr><tr>\n          <td><img class=\"revthumb\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg\"></td>\n          <td><em>" + tr_title + "</em></td></tr><tr>";
   format_content = "# " + tr_title + "\n\n##\n";
   for (var i = 0; i < number_of_sections; i++) {
     tr_text = $("#story_tgt_" + i).val();
