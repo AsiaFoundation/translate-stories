@@ -1,7 +1,3 @@
-var _ = function (check) {
-  return check;
-};
-
 var polyglot = new Polyglot({
   phrases: {
     'to get started, press the translate! button below.': 'ในการเริ่มต้นกด -แปล!- ปุ่ม',
@@ -23,8 +19,12 @@ var polyglot = new Polyglot({
   }
 });
 
-_ = function (word, vars) {
-  return polyglot.t(word.toLowerCase(), vars);
+var _ = function (word, vars) {
+  if (window.location.href.indexOf('thai') > -1) {
+    return polyglot.t(word.toLowerCase(), vars);
+  } else {
+    return word;
+  }
 };
 
 $(function() {
