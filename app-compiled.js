@@ -29,19 +29,20 @@ app.use(compression());
 app.use(jade(path.join(__dirname, 'views')));
 app.use(convert(kstatic(__dirname + '/static')));
 
-app.keys = ['wkpow3jocijoid3jioj3', 'cekopjpdjjo3jcjio3jc'];
-app.use(session({
+app.keys = [process.env.KEY_1 || 'wkpow3jocijoid3jioj3', process.env.KEY_2 || 'cekopjpdjjo3jcjio3jc'];
+app.use(convert(session({
   store: new MongooseStore()
-}));
+})));
 
 app.use(logger());
 csrf(app);
 app.use(convert(csrf.middleware));
 
-router.get('/', routes.home).get('/epub', routes.epub).get('/book', routes.book).post('/translate', routes.translate);
+router.get('/', routes.home).get('/epub', routes.epub).get('/epub2', routes.epub2).get('/book', routes.book).post('/translate', routes.translate);
 
 app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(process.env.PORT || 8080);
 
 module.exports = app;
+

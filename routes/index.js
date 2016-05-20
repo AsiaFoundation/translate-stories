@@ -11,7 +11,15 @@ function book (ctx) {
 }
 
 function epub (ctx) {
-  ctx.render('epub');
+  ctx.render('epub', {
+    target: 'EPUB'
+  });
+}
+
+function epub2 (ctx) {
+  ctx.render('epub', {
+    target: 'EPUB-balloon'
+  });
 }
 
 async function translate (ctx) {
@@ -30,5 +38,6 @@ module.exports = {
   home: home,
   book: book,
   epub: epub,
+  epub2: epub2,
   translate: translate
 };

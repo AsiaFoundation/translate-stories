@@ -1,10 +1,15 @@
 var wholepages;
 var booktitle = '';
+var readium = undefined;
+var $$, pkg;
+
+if (typeof target === 'undefined') {
+  target = 'EPUB';
+}
 
 require(["readium_shared_js/globalsSetup"], function () {
     require(['readium_js/Readium'], function (Readium) {
 
-        var readium = undefined;
         var altBook = false;
 
         var readiumOptions =
@@ -119,7 +124,7 @@ require(["readium_shared_js/globalsSetup"], function () {
 
                         var openPageRequest = undefined; //{idref: bookmark.idref, elementCfi: bookmark.contentCFI};
 
-                        var ebookURL = altBook_ ? "EPUB/sample.epub" : "EPUB/sample.epub";
+                        var ebookURL = targetEPUB + ".epub";
 
                         readium.openPackageDocument(
                             ebookURL,
@@ -133,28 +138,53 @@ require(["readium_shared_js/globalsSetup"], function () {
                 }
             });
 
+            $$ = $;
+
             $(document).ready(function () {
                 wholepages = [];
                 readium = new Readium(readiumOptions, readerOptions);
 
                 var openPageRequest = undefined; //{idref: bookmark.idref, elementCfi: bookmark.contentCFI};
 
-                var ebookURL = "EPUB/sample";
+                var ebookURL = "/" + targetEPUB;
 
                 readium.openPackageDocument(
                     ebookURL,
                     function(packageDocument, options) {
+                      // pkg = packageDocument;
                       booktitle = options.metadata.title;
                       var maxPages = packageDocument.spineLength();
-                      $("#messages").text("Loaded 0 / " + maxPages);
-                      var loadpages = setInterval(function() {
-                        readium.reader.openPageRight();
-                        $("#messages").text("Loaded " + wholepages.length + " / " + maxPages);
-                        if (wholepages.length >= maxPages) {
-                          clearInterval(loadpages);
+                      if (maxPages === 1) {
+                        // one-page format
+                        var allContentURL = '/' + targetEPUB + '/OEBPS/' + packageDocument.getSpineItem(0).href;
+                        $.get(allContentURL, function (content) {
+                          var segments = $(content).find('img, p');
+                          console.log(segments.length);
+                          console.log(segments);
+                          for (var s = 0; s < segments.length; s++) {
+                            if (segments[s].tagName.toUpperCase() === 'IMG') {
+                              wholepages.push(['', '/../../OEBPS/' + $(segments[s]).attr('src')]);
+                            } else {
+                              if (!wholepages.length) {
+                                wholepages.push(['', '']);
+                              }
+                              wholepages[wholepages.length - 1][0] += segments[s].outerHTML;
+                            }
+                          }
                           setStory();
-                        }
-                      }, 150);
+                        });
+                      } else {
+                        // multiple-page format
+                        $("#messages").text("Loaded 0 / " + maxPages);
+                        var loadpages = setInterval(function() {
+                          readium.reader.openPageRight();
+                          $("#messages").text("Loaded " + wholepages.length + " / " + maxPages);
+                          if (wholepages.length >= maxPages) {
+                            clearInterval(loadpages);
+                            setStory();
+                          }
+                        }, 150);
+                      }
                     },
                     openPageRequest
                 );
@@ -193,7 +223,7 @@ function setStory(nav) {
   var cover = $("<div>").addClass("item");
   cover.append($("<div class='img-holder'>").append(
     $('<img/>')
-      .attr('src', "/EPUB/sample/OPS/" + wholepages[0][1])
+      .attr('src', "/" + targetEPUB + "/OPS/" + wholepages[0][1])
     )
   );
   cover.append(
@@ -209,10 +239,10 @@ function setStory(nav) {
     var page = $("<div>").addClass("item");
     page.append($("<div class='img-holder'>").append(
       $("<img>")
-        .attr("src", "/EPUB/sample/OPS/" + sections[i][1])
+        .attr("src", "/" + targetEPUB + "/OPS/" + sections[i][1])
       )
     );
-    page.append($("<span id='story_src_" + i + "'>").text(sections[i][0]));
+    page.append($("<span id='story_src_" + i + "'>").html(sections[i][0]));
     page.append($("<div class='form-group'><textarea id='story_tgt_" + i + "' class='form-control' placeholder='Your translation'></textarea></div>"));
     story_table.append(page);
   }
