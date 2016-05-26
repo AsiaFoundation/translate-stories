@@ -2,6 +2,10 @@
   height: 600px;
 }
 
+#viewport {
+  opacity: 0;
+}
+
 .navbar .navbar-nav>li>div {
   padding: 8px 12px;
   margin: 12.5px 6px;

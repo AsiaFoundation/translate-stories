@@ -159,8 +159,6 @@ require(["readium_shared_js/globalsSetup"], function () {
                         var allContentURL = '/' + targetEPUB + '/OEBPS/' + packageDocument.getSpineItem(0).href;
                         $.get(allContentURL, function (content) {
                           var segments = $(content).find('img, p');
-                          console.log(segments.length);
-                          console.log(segments);
                           for (var s = 0; s < segments.length; s++) {
                             if (segments[s].tagName.toUpperCase() === 'IMG') {
                               wholepages.push(['', '/../../OEBPS/' + $(segments[s]).attr('src')]);
@@ -195,6 +193,7 @@ require(["readium_shared_js/globalsSetup"], function () {
 });
 
 function setStory(nav) {
+  $("#viewport").addClass("hide");
   var story_table = $("#story_table");
   var messages = $("#messages");
   var translator = $("#translator");
