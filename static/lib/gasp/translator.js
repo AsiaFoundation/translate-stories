@@ -98,10 +98,10 @@ function translate_story(nav) {
           .attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
         )
       );
-      page.append($("<span id='story_src_" + i + "'>").text(pageText));
+      page.append($("<span id='story_src_" + i + "_" + s + "'>").text(pageText));
       page.append(
         $("<div class='form-group'></div>").append(
-          $("<textarea id='story_tgt_" + i + "' class='form-control'></textarea>")
+          $("<textarea id='story_tgt_" + i + "_" + s + "' class='story_tgt' class='form-control'></textarea>")
             .attr('placeholder', _('Your translation'))
         )
       );
@@ -150,6 +150,8 @@ function translate_story(nav) {
 
 function get_storage(idx) {
   number_of_sections = parseInt($("#number_of_sections").html());
+
+  // update local storage as soon as user changes title field
   tr_title = $("#title_text");
   tr_title.on("input", function() {
     localStorage['gtr_' + idx + '_title'] = tr_title.val();
@@ -158,18 +160,32 @@ function get_storage(idx) {
     tr_title.val(localStorage["gtr_" + idx + "_title"]);
   }
 
-  function checkForInput(i) {
-    $("#story_tgt_" + i).on("input", function(e) {
-      localStorage['gtr_' + idx + '_s_' + i] = $(e.currentTarget).val();
-    });
-  }
+  // update local storage as soon as user changes any text field
+  $(".story_tgt").on("input", function(e) {
+    var id = $(e.currentTarget).attr('id').split('_').slice(2).join('_');
+    var pageCode = 'gtr_' + idx + '_s_' + (id.split('_')[0]);
+    var section = id.split('_')[1];
+    if (!localStorage[pageCode]) {
+      localStorage[pageCode] = '[]';
+    }
+    var pageRecord = JSON.parse(localStorage[pageCode]);
+    pageRecord[section] = $(e.currentTarget).val();
+    localStorage[pageCode] = JSON.stringify(pageRecord);
+  });
 
   for (var i = 0; i < number_of_sections; i++) {
-    checkForInput(i);
-    if (localStorage["gtr_" + idx + "_s_" + i]) {
-      $("#story_tgt_" + i).val(localStorage["gtr_" + idx + "_s_" + i]);
+    // store each page in localStorage as an array of sentences
+    var pageCode = "gtr_" + idx + "_s_" + i;
+    if (!localStorage[pageCode]) {
+      localStorage[pageCode] = '[]';
+    }
+    var pageRecord = JSON.parse(localStorage[pageCode]);
+    for (var s = 0; s < pageRecord.length; s++) {
+      $("#story_tgt_" + i + "_" + s).val(pageRecord[s]);
     }
   }
+
+  // store user e-mail in localStorage
   if (localStorage["gtr_email"]) {
     $("#email").val(localStorage["gtr_email"]);
   }
@@ -184,29 +200,68 @@ function review_translation() {
   translation_output = $("#translation_output");
   var container = $("#container");
 
-  content_div = "      <table id=\"content_table\">\n        <tr><th style='width:25%'></th><th style='width:65%'>" + _('your translation') + "</th></tr><tr>\n          <td><img class=\"revthumb\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg\"></td>\n          <td><em>" + tr_title + "</em></td></tr><tr>";
-  format_content = "# " + tr_title + "\n\n##\n";
-  for (var i = 0; i < number_of_sections; i++) {
-    tr_text = $("#story_tgt_" + i).val();
-    format_content = format_content + tr_text + "\n\n##\n";
+  // initialize table header
+  var content_div = $("<table>").attr("id", "content_table");
+  var header = $("<tr>")
+    .append(
+      $("<th style='width:25%'>")
+    )
+    .append(
+      $("<th style='width:65%'>").text(_('your translation'))
+    );
+  content_div.append(header);
 
+  // title row
+  var titleRow = $("<tr>")
+    .append(
+      $("<td>").append(
+        $("<img class='revthumb'/>").attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/01.jpg")
+      )
+    )
+    .append(
+      $("<td>").append(
+        $("<em>").text(tr_title)
+      )
+    );
+  content_div.append(titleRow);
+  format_content = "# " + tr_title + "\n\n##\n";
+
+  // add a row for each page, including all sentences
+  for (var i = 0; i < number_of_sections; i++) {
     page_number = i + 2;
     if (page_number < 10) {
       page_number = "0" + page_number;
     }
-    if (page_number != 0 || page_number != page_number.length) {
-      content_div = content_div + "          <td><img class=\"revthumb\" src=\"https://raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg\"></td>\n          <td>" + $("#story_tgt_" + i).val() + "</td>        </tr>"
-    }
 
+    // this reconnects all sentences to their one page
+    var storySentences = $.map($(".owl-item [id^=story_tgt_" + i + "_]"), function(page) {
+      return $(page).val()
+    });
+    storySentences = storySentences.join("|||");
+
+    format_content = format_content + storySentences.replace(/\|\|\|/g, "\n") + "\n\n##\n";
+
+    var pageRow = $("<tr>")
+      .append(
+        $("<td>").append(
+          $("<img class='revthumb'/>").attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
+        )
+      )
+      .append(
+        $("<td class='t'>").text(storySentences)
+      );
+
+    // escape user's translations for HTML, except for <br/>
+    pageRow.find('td.t').html( pageRow.find('td.t').html().replace(/\|\|\|/g, "<br/>") );
+    content_div.append(pageRow);
   }
+
   translang = "Translation: " + translator.html() + "\n* Language: " + language.html();
-
   translation_output.val(format_content + attribution.replace(/<br>/g, "\n").replace(/Language: .*/, translang));
-
   $("#submit_form").css({ display: '' });
 
   var review_table = $("#review_table");
-  review_table.html(content_div + "</table>");
+  review_table.append(content_div);
 
   prepare_submission();
 

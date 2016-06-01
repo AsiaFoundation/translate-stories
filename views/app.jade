@@ -3,15 +3,22 @@ extends ./layout.jade
 block content
   .row
     .col-sm-12
-      #viewport
+      h1 Translate-Stories
+      h3 Asia Foundation Prototype
   .row
-    .col-sm-12
-      button#prev &larr;
-      button#next &rarr;
+    .col-sm-6
+      h4 African Storybook Project books
+      ul
+        li
+          a(href="/book#0352") Sample Book
+        li
+          a(href="/book?thai#0352") Sample Thai UI
+    .col-sm-6
+      h4 ePUB + ReadiumJS
+      ul
+        li
+          a(href="/epub") Sample ePUB
+        li
+          a(href="/epub2") ePUB from InDesign
 
 block scripts
-  //
-    script(type="text/javascript", src="/lib/jquery-1.11.3.min.js")
-    script(type="text/javascript", src="/lib/require.js")
-  script(type="text/javascript", src="/lib/readium-js_all.js")
-  script(type="text/javascript", src="/readium-test.js")

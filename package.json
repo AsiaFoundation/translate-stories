@@ -8,7 +8,7 @@
     "serve": "babel-node -- app.js",
     "test": "mocha --compilers js:babel-core/register",
     "heroku": "node app-compiled.js",
-    "build": "babel app.js > app-compiled.js && babel routes/index.js > routes/index-compiled.js"
+    "build": "babel app.js > app-compiled.js && babel routes/index.js > routes/index-compiled.js && babel routes/api.js > routes/api-compiled.js"
   },
   "author": "The Asia Foundation",
   "license": "MIT",
