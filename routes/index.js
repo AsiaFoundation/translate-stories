@@ -30,7 +30,8 @@ function translate (req, res) {
     title: body.story_number,
     language: body.story_language,
     translator: body._subject,
-    pages: body.story_translation
+    pages: body.story_translation,
+    user_id: (req.user._id || '')
   });
   b.save(function(err) {
     if (err) {
