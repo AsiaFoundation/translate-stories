@@ -1,8 +1,12 @@
 const Book = require('../models/book.js');
 
-async function books(ctx) {
-  var myBookData = await Book.find();
-  ctx.body = myBookData;
+function books(req, res) {
+  Book.find({}).exec(function (err, myBookData) {
+    if (err) {
+      return res.json(err);
+    }
+    res.json(myBookData);
+  });
 }
 
 module.exports = {

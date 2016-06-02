@@ -1,38 +1,42 @@
 const Book = require('../models/book.js');
 const api = require('./api.js');
 
-function home (ctx) {
-  ctx.render('app');
+function home (req, res) {
+  res.render('app');
 }
 
-function book (ctx) {
-  ctx.render('book', {
-    csrfToken: ctx.csrf
+function book (req, res) {
+  res.render('book', {
+    csrfToken: req.csrfToken()
   });
 }
 
-function epub (ctx) {
-  ctx.render('epub', {
+function epub (req, res) {
+  res.render('epub', {
     target: 'EPUB'
   });
 }
 
-function epub2 (ctx) {
-  ctx.render('epub', {
+function epub2 (req, res) {
+  res.render('epub', {
     target: 'EPUB-balloon'
   });
 }
 
-async function translate (ctx) {
-  var body = ctx.request.body;
+function translate (req, res) {
+  var body = req.body;
   var b = new Book({
     title: body.story_number,
     language: body.story_language,
     translator: body._subject,
     pages: body.story_translation
   });
-  await b.save();
-  ctx.redirect('/book');
+  b.save(function(err) {
+    if (err) {
+      return res.json(err);
+    }
+    res.redirect('/book');
+  });
 }
 
 module.exports = {
