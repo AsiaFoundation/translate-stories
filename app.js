@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo')(session);
 const compression = require('compression');
 const mongoose = require('mongoose');
 const csrf = require('csurf');
+const passport = require('passport');
 
 const routes = require('./routes/index.js');
 
@@ -38,12 +39,41 @@ app.use(session({
 
 var csrfProtection = csrf({ cookie: true });
 
-app.get('/', routes.home);
-app.get('/epub', csrfProtection, routes.epub);
-app.get('/epub2', csrfProtection, routes.epub2);
-app.get('/book', csrfProtection, routes.book);
-app.post('/translate', csrfProtection, routes.translate);
+app.use(passport.initialize());
+app.use(passport.session());
+if (process.env.GOOGLE_CONSUMER_KEY && process.env.GOOGLE_CLIENT_SECRET) {
+  passport.use(routes.login.googlesetup);
+} else {
+  passport.use(routes.login.setup);
+}
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+// general routes
+app.get('/', routes.home)
+   .get('/epub', csrfProtection, routes.epub)
+   .get('/epub2', csrfProtection, routes.epub2)
+   .get('/book', csrfProtection, routes.book)
+   .post('/translate', csrfProtection, routes.translate);
+
+// API routes
 app.get('/api/books', routes.api.books);
+
+// login routes
+app.get('/logout', routes.login.middleware, csrfProtection, routes.login.logout)
+   .get('/bye', routes.login.middleware, csrfProtection, routes.login.bye)
+   .get('/login', csrfProtection, routes.login.startlogin)
+   .post('/login', passport.authenticate('local', { failureRedirect: '/login' }), csrfProtection, routes.login.locallogin)
+   .get('/register', routes.login.middleware, csrfProtection, routes.login.startregister)
+   .post('/register', routes.login.middleware, csrfProtection, routes.login.localregister)
+   .get('/auth/google', passport.authenticate('google', { scope: ['email'], failureRedirect: '/login' }));
+
 
 app.listen(process.env.PORT || 8080, function() {
   console.log('server is running...');

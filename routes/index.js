@@ -1,5 +1,6 @@
 const Book = require('../models/book.js');
 const api = require('./api.js');
+const login = require('./login.js');
 
 function home (req, res) {
   res.render('app');
@@ -45,5 +46,6 @@ module.exports = {
   epub: epub,
   epub2: epub2,
   translate: translate,
-  api: api
+  api: api,
+  login: login
 };

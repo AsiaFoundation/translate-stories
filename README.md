@@ -12,6 +12,8 @@ pages using Owl Carousel 2.
 <a href="http://www.africanstorybook.org">African Storybook Project</a>. Longer pages are split up by sentence, so users can translate one
 sentence at a time on their mobile device.
 
+Server-side code is ExpressJS with PassportJS for authentication.
+
 ## License
 
 Open source, MIT license
