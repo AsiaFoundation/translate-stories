@@ -6,7 +6,10 @@ var userSchema = mongoose.Schema({
   test: Boolean,
   localpass: String,
   salt: String,
-  canVerify: Boolean
+  canVerify: Boolean,
+  preferredLanguage: String,
+  readLanguages: [String],
+  writeLanguages: [String]
 });
 
 module.exports = mongoose.model('User', userSchema);

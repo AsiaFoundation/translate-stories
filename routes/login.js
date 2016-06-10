@@ -94,12 +94,17 @@ var localregister = function (req, res) {
       if (err) {
         return printError(res, err);
       }
+      var languages = req.body.languages.split(/[,\s]+/);
+
       var u = new User({
         name: req.body.username.toLowerCase(),
         localpass: hash,
         salt: salt,
         test: false,
-        verify: (req.body.canVerify === 'on')
+        verify: (req.body.canVerify === 'on'),
+        readLanguages: languages,
+        writeLanguages: languages,
+        preferredLanguage: languages[0] || 'en'
       });
       u.save(function (err) {
         if (err) {

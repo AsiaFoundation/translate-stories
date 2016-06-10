@@ -25,6 +25,9 @@ block content
             input(type="checkbox", name="canVerify", checked="checked")
             span Verify Translations
           br
+          label List Languages, first language first (eg "English, Thai")
+          textarea(name="languages")
+          br
           input(type="hidden", name="_csrf", value="#{csrfToken}")
           button.btn.btn-success Register New User
         .well
