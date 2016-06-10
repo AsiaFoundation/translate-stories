@@ -20,6 +20,10 @@ block content
           input(type="text", name="username")
           label Password
           input(type="password", name="password")
+          label Permissions
+          label
+            input(type="checkbox", name="canVerify", checked="checked")
+            span Verify Translations
           br
           input(type="hidden", name="_csrf", value="#{csrfToken}")
           button.btn.btn-success Register New User

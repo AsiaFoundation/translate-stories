@@ -98,7 +98,8 @@ var localregister = function (req, res) {
         name: req.body.username.toLowerCase(),
         localpass: hash,
         salt: salt,
-        test: false
+        test: false,
+        verify: (req.body.canVerify === 'on')
       });
       u.save(function (err) {
         if (err) {

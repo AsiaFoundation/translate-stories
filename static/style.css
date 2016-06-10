@@ -74,3 +74,12 @@ button.done {
   margin-right: auto;
   margin-top: 100px;
 }
+
+form.well label, form.well input {
+  display: block;
+  margin: 6px;
+}
+
+form.well label input {
+  display: inline;
+}

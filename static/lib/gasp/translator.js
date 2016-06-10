@@ -295,7 +295,7 @@ function prepare_submission() {
   $("#name_line").val($('#translator').val());
   $("#story_number").val(idx);
   $("#story_language").val($('#language').val());
-  $("#md_title").val(idx + "_" + $('#title_text').text().toLowerCase().replace(/ /g, "-").replace(/[\!\?,\.:'¿¡`]/g, "") + ".md");
+  $("#md_title").val($("#messages i").text());
   $("#story_translation").val($('#translation_output').val());
   rev.css({ width: "80%" });
   rev.removeClass("tooltip");

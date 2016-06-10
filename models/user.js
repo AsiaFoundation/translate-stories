@@ -5,7 +5,8 @@ var userSchema = mongoose.Schema({
   name: String,
   test: Boolean,
   localpass: String,
-  salt: String
+  salt: String,
+  canVerify: Boolean
 });
 
 module.exports = mongoose.model('User', userSchema);

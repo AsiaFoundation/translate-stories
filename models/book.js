@@ -6,7 +6,8 @@ var bookSchema = mongoose.Schema({
   language: String,
   pages: String,
   translator: String,
-  user_id: String
+  user_id: String,
+  verified: Boolean
 });
 
 module.exports = mongoose.model('Book', bookSchema);

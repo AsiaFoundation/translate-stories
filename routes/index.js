@@ -1,5 +1,6 @@
 const Book = require('../models/book.js');
 const api = require('./api.js');
+const verify = require('./verify.js');
 const login = require('./login.js');
 
 function home (req, res) {
@@ -31,11 +32,12 @@ function translate (req, res) {
   }
   var b = new Book({
     book_id: body.story_number,
-    title: body.story_number,
+    title: body.md_title,
     language: body.story_language,
     translator: body._subject,
     pages: body.story_translation,
-    user_id: req.user._id
+    user_id: req.user._id,
+    verified: false
   });
   b.save(function(err) {
     if (err) {
@@ -50,6 +52,7 @@ module.exports = {
   book: book,
   epub: epub,
   epub2: epub2,
+  verify: verify,
   translate: translate,
   api: api,
   login: login

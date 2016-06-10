@@ -1,0 +1,7 @@
+extends ./layout.jade
+
+block content
+  .row
+    for book in books
+      h3 #{book.title}
+      p #{book.pages}
