@@ -26,12 +26,16 @@ function epub2 (req, res) {
 
 function translate (req, res) {
   var body = req.body;
+  if (!req.user) {
+    req.user = { _id: '' };
+  }
   var b = new Book({
+    book_id: body.story_number,
     title: body.story_number,
     language: body.story_language,
     translator: body._subject,
     pages: body.story_translation,
-    user_id: (req.user._id || '')
+    user_id: req.user._id
   });
   b.save(function(err) {
     if (err) {

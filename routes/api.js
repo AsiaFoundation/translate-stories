@@ -9,6 +9,16 @@ function books(req, res) {
   });
 }
 
+function book(req, res) {
+  Book.find({ book_id: req.params.id }).exec(function(err, myBookData) {
+    if (err) {
+      return res.json(err);
+    }
+    res.json(myBookData);
+  });
+}
+
 module.exports = {
-  books: books
+  books: books,
+  book: book
 };

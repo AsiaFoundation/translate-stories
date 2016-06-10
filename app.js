@@ -63,7 +63,8 @@ app.get('/', routes.home)
    .post('/translate', routes.login.middleware, csrfProtection, routes.translate);
 
 // API routes
-app.get('/api/books', routes.api.books);
+app.get('/api/books', routes.api.books)
+   .get('/api/books/:id', routes.api.book);
 
 // login routes
 app.get('/logout', routes.login.middleware, csrfProtection, routes.login.logout)
