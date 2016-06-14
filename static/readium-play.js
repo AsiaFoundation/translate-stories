@@ -174,12 +174,24 @@ require(["readium_shared_js/globalsSetup"], function () {
                       } else {
                         // multiple-page format
                         $("#messages").text("Loaded 0 / " + maxPages);
+                        var lastPages = [0, new Date()];
                         var loadpages = setInterval(function() {
                           readium.reader.openPageRight();
                           $("#messages").text("Loaded " + wholepages.length + " / " + maxPages);
                           if (wholepages.length >= maxPages) {
                             clearInterval(loadpages);
                             setStory();
+                          } else {
+                            // update time of last new page added
+                            if (wholepages.length > lastPages[0]) {
+                              lastPages = [wholepages.length, new Date()];
+                            }
+                            // if it's been too long since I added a page, I probably did reach the end
+                            // skip to translation phase
+                            if ((new Date() - lastPages[1]) > 2000) {
+                              clearInterval(loadpages);
+                              setStory();
+                            }
                           }
                         }, 150);
                       }
