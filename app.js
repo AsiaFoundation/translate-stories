@@ -12,6 +12,8 @@ const mongoose = require('mongoose');
 const csrf = require('csurf');
 const passport = require('passport');
 
+const busboy = require('connect-busboy');
+
 const routes = require('./routes/index.js');
 
 console.log('Connecting to MongoDB (required)');
@@ -55,6 +57,9 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+// upload helper
+app.use(busboy());
+
 // general routes
 app.get('/', routes.home)
    .get('/epub', csrfProtection, routes.epub)
@@ -76,6 +81,8 @@ app.get('/logout', routes.login.middleware, csrfProtection, routes.login.logout)
    .post('/register', routes.login.middleware, csrfProtection, routes.login.localregister)
    .get('/auth/google', passport.authenticate('google', { scope: ['email'], failureRedirect: '/login' }));
 
+// upload routes
+app.post('/upload', csrfProtection, routes.login.middleware, routes.upload.upload);
 
 app.listen(process.env.PORT || 8080, function() {
   console.log('server is running...');

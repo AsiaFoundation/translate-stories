@@ -2,6 +2,7 @@ const Book = require('../models/book.js');
 const api = require('./api.js');
 const verify = require('./verify.js');
 const login = require('./login.js');
+const upload = require('./upload.js');
 
 function home (req, res) {
   res.render('app');
@@ -55,5 +56,6 @@ module.exports = {
   verify: verify,
   translate: translate,
   api: api,
-  login: login
+  login: login,
+  upload: upload
 };
