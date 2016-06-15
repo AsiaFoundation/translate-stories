@@ -1,3 +1,5 @@
+const JSZip = require('jszip');
+
 const Book = require('../models/book.js');
 
 function books(req, res) {
@@ -18,7 +20,29 @@ function book(req, res) {
   });
 }
 
+function output(req, res) {
+  var zip = new JSZip();
+  //var epub = zip.folder('EPUB');
+
+  var meta = zip.folder('META-INF');
+    meta.file('container.xml', "<?xml version='1.0' encoding='UTF-8' ?>\n" +
+    "<container version='1.0' xmlns='urn:oasis:names:tc:opendocument:xmlns:container'>\n" +
+       "<rootfiles>\n" +
+          "<rootfile full-path='OPS/package.opf' media-type='application/oebps-package+xml'/>\n" +
+       "</rootfiles>\n" +
+    "</container>");
+  var ops = zip.folder('OPS');
+  var mime = zip.file('mimetype', 'application/epub+zip')
+  zip
+    .generateNodeStream({type:'nodebuffer',streamFiles:true})
+    .pipe(res)
+    .on('finish', function () {
+        console.log("test.epub downloaded");
+    });
+}
+
 module.exports = {
   books: books,
-  book: book
+  book: book,
+  output: output
 };
