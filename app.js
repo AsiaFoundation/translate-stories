@@ -83,7 +83,8 @@ app.get('/logout', routes.login.middleware, csrfProtection, routes.login.logout)
    .get('/auth/google', passport.authenticate('google', { scope: ['email'], failureRedirect: '/login' }));
 
 // upload routes
-app.post('/upload', csrfProtection, routes.login.middleware, routes.upload.upload);
+app.get('/uploader', csrfProtection, routes.login.middleware, routes.upload.uploader)
+   .post('/upload', csrfProtection, routes.login.middleware, routes.upload.upload);
 
 app.listen(process.env.PORT || 8080, function() {
   console.log('server is running...');

@@ -1,0 +1,18 @@
+extends ./layout.jade
+
+block content
+  .row
+    .col-sm-12
+      h1 Translate-Stories
+      .pull-right
+        p Welcome
+        a(href="/logout")
+          button.btn.btn-inverse Log Out
+  .row
+    .col-sm-12.col-md-6
+      form.well
+        input(id="fileup", type="file", name="file")
+
+block scripts
+  script(type="text/javascript", src="lib/jszip.min.js")
+  script(type="text/javascript", src="uploader.js")
