@@ -71,7 +71,8 @@ app.get('/', routes.home)
 // API routes
 app.get('/api/books', routes.api.books)
    .get('/api/books/:id', routes.api.book)
-   .get('/api/books/:id/export', routes.api.output);
+   .get('/api/books/:id/export', routes.api.output)
+   .post('/api/comment', routes.api.comment);
 
 // login routes
 app.get('/logout', routes.login.middleware, csrfProtection, routes.login.logout)

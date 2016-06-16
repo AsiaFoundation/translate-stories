@@ -1,6 +1,7 @@
 const JSZip = require('jszip');
 
 const Book = require('../models/book.js');
+const Comment = require('../models/Comment.js');
 
 function books(req, res) {
   Book.find({}).exec(function (err, myBookData) {
@@ -41,8 +42,29 @@ function output(req, res) {
     });
 }
 
+function comment(req, res) {
+  if (!req.user) {
+    return res.redirect('/login');
+  }
+  var c = new Comment({
+    user_id: req.user._id,
+    book_id: req.body.book_id,
+    user_name: req.user.name,
+    page: req.body.page * 1,
+    text: req.body.text,
+    date: new Date()
+  });
+  c.save(function (err) {
+    if (err) {
+      return res.json(err);
+    }
+    res.json({ status: 'success', _id: c._id });
+  });
+}
+
 module.exports = {
   books: books,
   book: book,
-  output: output
+  output: output,
+  comment: comment
 };

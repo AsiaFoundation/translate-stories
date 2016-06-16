@@ -1,4 +1,6 @@
 const Book = require('../models/book.js');
+const Comment = require('../models/comment.js');
+
 const api = require('./api.js');
 const verify = require('./verify.js');
 const login = require('./login.js');
@@ -15,14 +17,32 @@ function book (req, res) {
 }
 
 function epub (req, res) {
-  res.render('epub', {
-    target: 'EPUB'
+  var book_id = 'EPUB';
+  Comment.find({ book_id: book_id }).sort('page, -date').exec(function (err, comments) {
+    if (err) {
+      return res.json(err);
+    }
+    res.render('epub', {
+      target: 'EPUB',
+      book_id: book_id,
+      comments: comments,
+      userName: req.user.name
+    });
   });
 }
 
 function epub2 (req, res) {
-  res.render('epub', {
-    target: 'EPUB-balloon'
+  var book_id = 'EPUB-balloon';
+  Comment.find({ book_id: book_id }).sort('page, -date').exec(function (err, comments) {
+    if (err) {
+      return res.json(err);
+    }
+    res.render('epub', {
+      target: 'EPUB-balloon',
+      book_id: book_id,
+      comments: comments,
+      userName: req.user.name
+    });
   });
 }
 

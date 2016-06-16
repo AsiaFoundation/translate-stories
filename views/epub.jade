@@ -79,5 +79,5 @@ block scripts
   script(type="text/javascript", src="/lib/bootstrap.min.js")
   script(type="text/javascript", src="/lib/owl.carousel.min.js")
 
-  script(type="text/javascript") var targetEPUB = "!{target}";
-  script(type="text/javascript", src="/readium-play.js")
+  script(type="text/javascript") var targetEPUB = "!{target}"; var book_id = "#{book_id}"; var userName = "#{userName}"; var csrf = "#{csrfToken}"; var comments = !{JSON.stringify(comments)};
+  script(type="text/javascript", src="/readium-comment.js")

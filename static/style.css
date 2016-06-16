@@ -83,3 +83,21 @@ form.well label, form.well input {
 form.well label input {
   display: inline;
 }
+
+.item form.comment {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .item .translatetext {
+    width: 45%;
+    float: left;
+  }
+
+  .item .comment {
+    display: block;
+    margin-left: 5%;
+    width: 35%;
+    float: left;
+  }
+}
