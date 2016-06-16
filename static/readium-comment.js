@@ -181,15 +181,24 @@ function setStory(nav) {
     ));
 
     // add page comments
-    var commentSection = $('<div class="comment">').append(cmform(i));
+    var commentSection = $('<div class="comment">')
+      .append(cmform(i));
     var commentList = $('<div class="list">');
+    var commentCount = 0;
     for (commentCursor; commentCursor < comments.length; commentCursor++) {
       if (comments[commentCursor].page > i) {
         break;
       } else if (comments[commentCursor].page === i) {
         commentList.append(addComment(comments[commentCursor]));
+        commentCount++;
       }
     }
+    var commentNote = $('<button class="comment-note">').text(commentCount).click(function(e) {
+      $(e.currentTarget)
+        .hide()
+        .parents('.item').find('.comment').show();
+    });
+    page.append(commentNote);
     commentSection.append(commentList);
     page.append(commentSection);
 

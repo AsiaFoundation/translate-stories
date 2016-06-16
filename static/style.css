@@ -84,8 +84,22 @@ form.well label input {
   display: inline;
 }
 
-.item form.comment {
+.item .comment {
   display: none;
+}
+
+.item .comment-note {
+  display: block;
+  border-radius: 25px;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  vertical-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: darkred;
+  color: #fff;
+  border: none;
 }
 
 @media (min-width: 900px) {
@@ -99,5 +113,9 @@ form.well label input {
     margin-left: 5%;
     width: 35%;
     float: left;
+  }
+
+  .item .comment-note {
+    display: none;
   }
 }
