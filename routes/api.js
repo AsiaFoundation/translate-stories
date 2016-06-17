@@ -1,7 +1,7 @@
 const JSZip = require('jszip');
 
 const Book = require('../models/book.js');
-const Comment = require('../models/Comment.js');
+const Comment = require('../models/comment.js');
 
 function books(req, res) {
   Book.find({}).exec(function (err, myBookData) {
