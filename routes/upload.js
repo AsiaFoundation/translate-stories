@@ -1,4 +1,3 @@
-const Filepicker = require('filepicker-node');
 const Source = require('../models/source.js');
 
 function upload(req, res) {
@@ -15,7 +14,7 @@ function uploader(req, res) {
   if (!req.user) {
     return res.redirect('/login');
   }
-  
+
   res.render('uploader');
 }
 
