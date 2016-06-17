@@ -66,7 +66,8 @@ app.get('/', routes.home)
    .get('/epub2', csrfProtection, routes.epub2)
    .get('/book', csrfProtection, routes.book)
    .post('/translate', routes.login.middleware, csrfProtection, routes.translate)
-   .get('/verify', csrfProtection, routes.verify.index);
+   .get('/verify', csrfProtection, routes.verify.index)
+   .get('/library', csrfProtection, routes.library);
 
 // API routes
 app.get('/api/books', routes.api.books)

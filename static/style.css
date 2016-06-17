@@ -120,6 +120,14 @@ form.well label input {
   padding: 4px;
 }
 
+form.form {
+  font-family: arial, sans-serif;
+}
+
+form.form label, form.form input {
+  margin-right: 9px;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;

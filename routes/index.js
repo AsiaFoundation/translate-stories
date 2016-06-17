@@ -1,4 +1,4 @@
-const Book = require('../models/book.js');
+const Source = require('../models/source.js');
 const Comment = require('../models/comment.js');
 
 const api = require('./api.js');
@@ -68,6 +68,17 @@ function translate (req, res) {
   });
 }
 
+function library (req, res) {
+  Source.find({}).exec(function(err, sources) {
+    if (err) {
+      return res.json(err);
+    }
+    res.render('library', {
+      sources: sources
+    });
+  });
+}
+
 module.exports = {
   home: home,
   book: book,
@@ -77,5 +88,6 @@ module.exports = {
   translate: translate,
   api: api,
   login: login,
-  upload: upload
+  upload: upload,
+  library: library
 };
