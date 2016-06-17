@@ -69,26 +69,6 @@ function translate (req, res) {
 }
 
 function library (req, res) {
-  
-  var s = new Source({
-    book_id: '/epub',
-    title: 'Little Socks',
-    cover: '/EPUB/OPS/images/cover.png',
-    author: 'Lili Probart, Jon Keevy, Chani Coetzee',
-    languages: ['en'],
-    pages: []
-  });
-  s.save();
-  var s2 = new Source({
-    book_id: '/epub2',
-    title: 'The Balloon Boy',
-    cover: '/EPUB-balloon/OEBPS/images/cover_balloon%20boy_fmt.jpeg',
-    author: 'Room to Read Cambodia',
-    languages: ['en', 'kh'],
-    pages: []
-  });
-  s2.save();
-
   Source.find({}).exec(function(err, sources) {
     if (err) {
       return res.json(err);
