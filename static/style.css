@@ -102,6 +102,10 @@ form.well label input {
   border: none;
 }
 
+.languagelist, .select2-container {
+  width: 80%;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;

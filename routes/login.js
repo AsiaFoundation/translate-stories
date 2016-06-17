@@ -94,7 +94,10 @@ var localregister = function (req, res) {
       if (err) {
         return printError(res, err);
       }
-      var languages = req.body.languages.split(/[,\s]+/);
+      var languages = req.body.languages;
+      if (typeof languages === 'string') {
+        languages = [languages];
+      }
 
       var u = new User({
         name: req.body.username.toLowerCase(),

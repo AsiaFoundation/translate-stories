@@ -26,10 +26,22 @@ block content
             span Verify Translations
           br
           label List Languages, first language first (eg "English, Thai")
-          textarea(name="languages")
+          br
+          select.languagelist(name="languages", multiple="multiple")
+            option(value="en") English
+            option(value="th") Thai
+            option(value="karen") Karen
+          br
           br
           input(type="hidden", name="_csrf", value="#{csrfToken}")
           button.btn.btn-success Register New User
         .well
           span Already have an account?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           a(href="/login").btn.btn-info Log In
+
+block scripts
+  link(rel="stylesheet", type="text/css", href="/lib/select2.min.css")
+  
+  script(type="text/javascript", src="/lib/jquery-1.11.3.min.js")
+  script(type="text/javascript", src="/lib/select2.full.js")
+  script(type="text/javascript", src="/select-languages.js")

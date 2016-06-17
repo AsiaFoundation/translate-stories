@@ -1,0 +1,3 @@
+$(function() {
+  $(".languagelist").select2();
+});
