@@ -7,21 +7,21 @@ block content
         h3
           span Translate Stories&nbsp;&nbsp;&nbsp;
           small Library Test
-  .row
+  .row.library
     for source in sources.slice(0, 4)
       .col-md-3
         a(href="#{source.book_id}")
           h4= source.title
-          img(src="//placekitten.com/g/200/260")
+          img(src=source.cover)
         br
         for language in source.languages
           span.badge= language
-  .row
+  .row.library
     for source in sources.slice(4, 8)
       .col-md-3
         a(href="#{source.book_id}")
           h4= source.title
-          img(src="//placekitten.com/g/200/300")
+          img(src=source.cover)
         br
         for language in source.languages
           span.badge= language

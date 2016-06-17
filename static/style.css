@@ -128,6 +128,10 @@ form.form label, form.form input {
   margin-right: 9px;
 }
 
+.row.library img {
+  max-width: 100%;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;
