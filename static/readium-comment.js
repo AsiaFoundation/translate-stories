@@ -140,6 +140,11 @@ function setStory(nav) {
 
   // add title comments
   function cmform(pgnum) {
+    if (!userName) {
+      return $('<div class="buttons">')
+        .append($('<a class="btn btn-primary" href="/login">').text('Log In'))
+        .append($('<a class="btn btn-success" href="/register">').text('Register'));
+    }
     return $('<div class="form">').append(
       $('<div class="form-group">')
         .append($('<input name="page" class="page" type="hidden"/>').val(pgnum))
@@ -193,14 +198,37 @@ function setStory(nav) {
         commentCount++;
       }
     }
-    var commentNote = $('<button class="comment-note">').text(commentCount).click(function(e) {
-      $(e.currentTarget)
-        .hide()
-        .parents('.item').find('.comment').show();
-    });
+    var commentNote = $('<button class="comment-note">')
+      .attr('id', 'pagemodalclick-' + i)
+      .text(commentCount)
+      .click(function(e) {
+        $('#' + $(e.currentTarget).attr('id').replace('click', '')).modal('show');
+      });
     page.append(commentNote);
     commentSection.append(commentList);
-    page.append(commentSection);
+
+    if ($('body').width() < 900) {
+      var pageModal = $('<div class="modal fade">')
+        .attr({
+          id: 'pagemodal-' + i,
+          tabindex: -1,
+          role: 'dialog'
+        })
+        .append(
+          $('<div class="modal-dialog">').append($('<div class="modal-content">').append(
+            $('<header class="modal-header">').append(
+              $('<button class="close" type="button" data-dismiss="modal" aria-label="Close">')
+                .append($('<span aria-hidden="true">').html('&times;'))
+            ).append($('<h4>').text('Comments'))
+          )
+          .append(
+            $('<div class="modal-body">').append(commentSection)
+          )
+        ));
+      $(document.body).append(pageModal);
+    } else {
+      page.append(commentSection);
+    }
 
     story_table.append(page);
   }
