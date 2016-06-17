@@ -49,11 +49,7 @@ var logout = function (req, res) {
 };
 
 var locallogin = function(req, res) {
-  if (req.user.posted) {
-    res.redirect('/feed');
-  } else {
-    res.redirect('/profile');
-  }
+  res.redirect('/library');
 };
 
 var startlogin = function (req, res) {
