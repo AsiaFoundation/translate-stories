@@ -6,7 +6,24 @@ block content
       .page-header
         h3
           span Translate Stories&nbsp;&nbsp;&nbsp;
-          small Library Test
+          small Library
+  .row
+    .col-sm-6
+      select.language-select
+        option(value="") All Languages
+        option(value="en") English
+        option(value="th") Thai
+        option(value="kh") Khmer
+        option(value="karen") Karen
+    .col-sm-6
+      .form.searchable
+        .input-group
+          input.form-control(type="text", name="q", placeholder="Search by title...")
+          span.input-group-btn
+            button.btn.btn-default(type="button")
+              span Search
+  br
+  br
   .row.library
     for source in sources.slice(0, 4)
       .col-md-3
@@ -29,6 +46,7 @@ block content
   .row
     .col-sm-12.col-md-8
       form.form.well(action="/addsource", method="POST")
+        input(type="hidden", name="_csrf", value=csrfToken)
         h4 Add source
         .form-group
           .col-sm-4
@@ -56,3 +74,4 @@ block scripts
   script(type="text/javascript", src="/lib/jquery-1.11.3.min.js")
   script(type="text/javascript", src="/lib/select2.full.js")
   script(type="text/javascript", src="/select-languages.js")
+  script(type="text/javascript", src="/browse-library.js")

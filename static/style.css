@@ -132,6 +132,10 @@ form.form label, form.form input {
   max-width: 100%;
 }
 
+.badge {
+  padding: 7px 5px 5px 5px;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;

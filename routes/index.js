@@ -74,7 +74,8 @@ function library (req, res) {
       return res.json(err);
     }
     res.render('library', {
-      sources: sources
+      sources: sources,
+      csrfToken: req.csrfToken()
     });
   });
 }
