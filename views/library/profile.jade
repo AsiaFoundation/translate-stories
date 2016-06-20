@@ -1,0 +1,38 @@
+extends ../layout.jade
+
+block content
+  .row
+    .col-sm-12
+      .page-header
+        h3
+          span Translate Stories&nbsp;&nbsp;&nbsp;
+          small Library
+          .pull-right
+            if user
+              a(href="/profile")
+                img.profile(src="/profile.png", alt="profile photo - click to access your own profile")
+              a.btn.btn-primary(href="/logout") Log Out
+            else
+              a.btn.btn-primary(href="/login") Log In
+  .row
+    .col-sm-12
+      h2.title= user.name
+      .well
+        h4 Current books
+        for checkout in checkouts
+          .bookrecord
+            a(href=checkout.book_id)
+              h4= checkout.title
+              img(src=checkout.cover)
+              br
+            span #{languageKeys[checkout.inlang]} !{"&rarr;"} #{languageKeys[checkout.outlang]}
+        .clearfix
+  .row
+    .col-sm-6
+      .well
+        h4 Stats
+        p No stats at this time
+    .col-sm-6
+      .well
+        h4 Settings
+        p No settings at this time.

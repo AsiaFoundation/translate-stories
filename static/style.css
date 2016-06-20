@@ -136,7 +136,7 @@ form.form label, form.form input {
   padding: 7px 5px 5px 5px;
 }
 
-h4.title {
+h1.title, h2.title, h3.title, h4.title {
   text-align: center;
 }
 
@@ -157,6 +157,22 @@ h4.title {
 
 .userbar {
   color: #fff;
+}
+
+img.profile {
+  width: 40px;
+  margin-right: 15px;
+}
+
+.bookrecord {
+  float: left;
+  border: 1px solid silver;
+  padding: 8px;
+  text-align: center;
+}
+
+.bookrecord img {
+  max-width: 250px;
 }
 
 @media (min-width: 900px) {

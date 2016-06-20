@@ -1,7 +1,9 @@
 const JSZip = require('jszip');
 
 const Book = require('../models/book.js');
+const Checkout = require('../models/checkout.js');
 const Comment = require('../models/comment.js');
+const Source = require('../models/source.js');
 
 function books(req, res) {
   Book.find({}).exec(function (err, myBookData) {
@@ -66,7 +68,47 @@ function checkout(req, res) {
   if (!req.user) {
     return res.redirect('/login');
   }
-  res.redirect(req.body.book_id + '?from=' + req.body.inlang + '&to=' + req.body.outlang);
+  // see if this book is already checked out by the user
+  Checkout.find({ book_id: req.body.book_id, user_id: req.user._id }).exec(function (err, checkouts) {
+    if (err) {
+      return res.json(err);
+    }
+    if (checkouts.length) {
+      checkouts[0].updated = new Date();
+      checkouts[0].save(function (err) {
+        if (err) {
+          return res.json(err);
+        }
+        res.redirect(req.body.book_id + '?from=' + req.body.inlang + '&to=' + req.body.outlang);
+      });
+    } else {
+      Source.findOne({ book_id: req.body.book_id }).exec(function (err, book) {
+        if (err) {
+          return res.json(err);
+        }
+        if (!book) {
+          return res.json({ error: 'no book with this book_id' });
+        }
+        var c = new Checkout({
+          book_id: book.book_id,
+          user_id: req.user._id,
+          title: book.title,
+          cover: book.cover,
+          started: new Date(),
+          updated: new Date(),
+          inlang: req.body.inlang,
+          outlang: req.body.outlang,
+          comments: []
+        });
+        c.save(function(err) {
+          if (err) {
+            return res.json(err);
+          }
+          res.redirect(book.book_id + '?from=' + req.body.inlang + '&to=' + req.body.outlang);
+        });
+      });
+    }
+  });
 }
 
 module.exports = {

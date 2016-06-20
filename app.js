@@ -68,17 +68,18 @@ app.get('/', routes.home)
    .post('/translate', routes.login.middleware, csrfProtection, routes.translate)
    .get('/verify', csrfProtection, routes.verify.index);
 
-// library routes
+// library and profile routes
 app.get('/library', csrfProtection, routes.login.middleware, routes.library.index)
    .get('/library/listing/:id', csrfProtection, routes.login.middleware, routes.library.listing)
-   .get('/library/add', csrfProtection, routes.login.middleware, routes.library.add);
+   .get('/library/add', csrfProtection, routes.login.middleware, routes.library.add)
+   .get('/profile', csrfProtection, routes.login.middleware, routes.library.profile);
 
 // API routes
 app.get('/api/books', routes.api.books)
    .get('/api/books/:id', routes.api.book)
    .get('/api/books/:id/export', routes.api.output)
    .post('/api/comment', routes.api.comment)
-   .post('/api/go-translate', routes.api.checkout);
+   .post('/api/checkout', routes.api.checkout);
 
 // login routes
 app.get('/logout', routes.login.middleware, csrfProtection, routes.login.logout)

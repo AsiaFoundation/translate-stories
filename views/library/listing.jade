@@ -9,6 +9,8 @@ block content
           small Library
           .pull-right
             if user
+              a(href="/profile")
+                img.profile(src="/profile.png", alt="profile photo - click to access your own profile")
               a.btn.btn-primary(href="/logout") Log Out
             else
               a.btn.btn-primary(href="/login") Log In
@@ -31,9 +33,9 @@ block content
         label Pages:
         span ?
   if user
-    form.form(action="/api/go-translate", method="POST")
+    form.form(action="/api/checkout", method="POST")
       input(type="hidden", name="_csrf", value=csrfToken)
-      input(type="hidden", name="book_id", value=source.book_id)
+      input(type="hidden", name="book_id", value="#{source.book_id}")
       .row
       .row
         .col-sm-6

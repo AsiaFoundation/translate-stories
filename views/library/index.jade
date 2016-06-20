@@ -7,6 +7,13 @@ block content
         h3
           span Translate Stories&nbsp;&nbsp;&nbsp;
           small Library
+          .pull-right
+            if user
+              a(href="/profile")
+                img.profile(src="/profile.png", alt="profile photo - click to access your own profile")
+              a.btn.btn-primary(href="/logout") Log Out
+            else
+              a.btn.btn-primary(href="/login") Log In
   .row
     .col-sm-6
       select.language-select

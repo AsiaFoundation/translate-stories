@@ -1,3 +1,4 @@
+const Checkout = require('../models/checkout.js');
 const Source = require('../models/source.js');
 
 const languageKeys = {
@@ -31,7 +32,8 @@ function index (req, res) {
     res.render('library/index', {
       sources: sources,
       csrfToken: req.csrfToken(),
-      languageKeys: getLanguageKeys(req.user)
+      languageKeys: getLanguageKeys(req.user),
+      user: req.user
     });
   });
 }
@@ -39,6 +41,23 @@ function index (req, res) {
 function add (req, res) {
   res.render('library/addsource', {
     csrfToken: req.csrfToken()
+  });
+}
+
+function profile (req, res) {
+  if (!req.user) {
+    return res.redirect('/login');
+  }
+  Checkout.find({ user_id: req.user._id }).sort('-updated').exec(function (err, checkouts){
+    if (err) {
+      return res.json(err);
+    }
+    res.render('library/profile', {
+      csrfToken: req.csrfToken(),
+      user: req.user,
+      checkouts: checkouts,
+      languageKeys: getLanguageKeys(req.user)
+    });
   });
 }
 
@@ -56,5 +75,6 @@ function listing (req, res) {
 module.exports = {
   index: index,
   add: add,
-  listing: listing
+  listing: listing,
+  profile: profile
 };
