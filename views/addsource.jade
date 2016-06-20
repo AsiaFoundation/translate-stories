@@ -1,0 +1,42 @@
+extends ./layout.jade
+
+block content
+  .row
+    .col-sm-12
+      .page-header
+        h3
+          span Translate Stories&nbsp;&nbsp;&nbsp;
+          small Library
+  .row
+    .col-sm-12.col-md-8
+      form.form.well(action="/addsource", method="POST")
+        input(type="hidden", name="_csrf", value=csrfToken)
+        h4 Add source
+        .form-group
+          .col-sm-4
+            label Upload Cover
+            input(type="file", name="cover")
+          .col-sm-4
+            label Upload EPUB
+            input(type="file", name="file")
+          .clearfix
+        .form-group
+          label Title
+          input.input(type="text", name="title", placeholder="title")
+          label Authors
+          input.input(type="text", name="author", placeholder="author")
+        .form-group
+          label Source Language
+          select.languagelist(name="languages", multiple="multiple")
+            option(value="en") English
+            option(value="th") Thai
+            option(value="th") ภาษาไทย
+            option(value="karen") Karen
+            option(value="karen") စှီၤ
+
+block scripts
+  link(rel="stylesheet", type="text/css", href="/lib/select2.min.css")
+
+  script(type="text/javascript", src="/lib/jquery-1.11.3.min.js")
+  script(type="text/javascript", src="/lib/select2.full.js")
+  script(type="text/javascript", src="/select-languages.js")

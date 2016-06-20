@@ -1,10 +1,10 @@
-const Source = require('../models/source.js');
 const Comment = require('../models/comment.js');
 
 const api = require('./api.js');
 const verify = require('./verify.js');
 const login = require('./login.js');
 const upload = require('./upload.js');
+const library = require('./library.js');
 
 function home (req, res) {
   res.render('app');
@@ -65,18 +65,6 @@ function translate (req, res) {
       return res.json(err);
     }
     res.redirect('/book');
-  });
-}
-
-function library (req, res) {
-  Source.find({}).exec(function(err, sources) {
-    if (err) {
-      return res.json(err);
-    }
-    res.render('library', {
-      sources: sources,
-      csrfToken: req.csrfToken()
-    });
   });
 }
 
