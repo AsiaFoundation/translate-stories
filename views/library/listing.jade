@@ -31,7 +31,7 @@ block content
         label Pages:
         span ?
   if user
-    form.form(action="/go-translate", method="POST")
+    form.form(action="/api/go-translate", method="POST")
       input(type="hidden", name="_csrf", value=csrfToken)
       input(type="hidden", name="book_id", value=source.book_id)
       .row

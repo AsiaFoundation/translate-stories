@@ -69,11 +69,11 @@ require(["readium_shared_js/globalsSetup"], function () {
             });
           } else {
             // multiple-page format
-            $("#messages").text("Loaded 0 / " + maxPages);
+            $("#messages .status").text("Loaded 0 / " + maxPages);
             var lastPages = [0, new Date()];
             var loadpages = setInterval(function() {
               readium.reader.openPageRight();
-              $("#messages").text("Loaded " + wholepages.length + " / " + maxPages);
+              $("#messages .status").text("Loaded " + wholepages.length + " / " + maxPages);
               if (wholepages.length >= maxPages) {
                 clearInterval(loadpages);
                 setStory();
@@ -113,7 +113,8 @@ function setStory(nav) {
   attribution = '';
   sections = wholepages;
 
-  messages.html("Now translating story #" + idx + " - <i>" + title + "</i> into: <select id='language'><option>Spanish</option></select>");
+  messages.find('.status').hide();
+  messages.find('.userbar').removeClass('hide').show();
   var language = $("#language");
   language.on("input", function() {
     localStorage['gtr_l'] = language.val();

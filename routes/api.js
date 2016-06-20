@@ -62,9 +62,17 @@ function comment(req, res) {
   });
 }
 
+function checkout(req, res) {
+  if (!req.user) {
+    return res.redirect('/login');
+  }
+  res.redirect(req.body.book_id + '?from=' + req.body.inlang + '&to=' + req.body.outlang);
+}
+
 module.exports = {
   books: books,
   book: book,
   output: output,
-  comment: comment
+  comment: comment,
+  checkout: checkout
 };

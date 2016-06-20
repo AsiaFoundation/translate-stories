@@ -77,7 +77,8 @@ app.get('/library', csrfProtection, routes.login.middleware, routes.library.inde
 app.get('/api/books', routes.api.books)
    .get('/api/books/:id', routes.api.book)
    .get('/api/books/:id/export', routes.api.output)
-   .post('/api/comment', routes.api.comment);
+   .post('/api/comment', routes.api.comment)
+   .post('/api/go-translate', routes.api.checkout);
 
 // login routes
 app.get('/logout', routes.login.middleware, csrfProtection, routes.login.logout)

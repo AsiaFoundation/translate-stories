@@ -26,7 +26,8 @@ function epub (req, res) {
       target: 'EPUB',
       book_id: book_id,
       comments: comments,
-      userName: (req.user || {}).name
+      userName: (req.user || {}).name,
+      langchange: req.query.from + ' → ' + req.query.to
     });
   });
 }
@@ -41,7 +42,8 @@ function epub2 (req, res) {
       target: 'EPUB-balloon',
       book_id: book_id,
       comments: comments,
-      userName: (req.user || {}).name
+      userName: (req.user || {}).name,
+      langchange: req.query.from + ' → ' + req.query.to
     });
   });
 }

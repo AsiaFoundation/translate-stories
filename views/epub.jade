@@ -8,10 +8,15 @@ block content
     .container
       .navbar-header
       ul.nav
-        li.hide
-          a(href="#") Example
         li
-          #messages Loading ePUB...
+          #messages
+            .status Loading ePUB...
+            .userbar.hide
+              h4.title
+                a.btn.btn-success.pull-left(href="javascript:back()") &larr;
+                span= book_id
+                span.pull-right !{langchange}
+              
 
   #frametop.hide
     #status_bar
@@ -53,8 +58,8 @@ block content
   #dynamic_content(style="margin-top: 70px;")
     #translated_msg(style="display:none") &nbsp;
     #translator_div(style="display:none")
-      span Translated by:&nbsp;
-      span#translator.editable(contenteditable="true", oninput="localStorage['gtr_a']=this.innerHTML", placeholder="Your name")
+      span.hide Translated by:&nbsp;
+      span#translator.editable.hide(contenteditable="true", oninput="localStorage['gtr_a']=this.innerHTML", placeholder="Your name")
     #story_table.owl-carousel.owl-theme
     button#previouser.pull-left &larr;
     button#nexter.pull-right &rarr;
