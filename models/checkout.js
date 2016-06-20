@@ -5,6 +5,7 @@ var checkoutSchema = mongoose.Schema({
   title: String,
   cover: String,
   user_id: String,
+  user_name: String,
   started: Date,
   updated: Date,
   inlang: String,

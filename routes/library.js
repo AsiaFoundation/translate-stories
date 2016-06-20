@@ -63,11 +63,28 @@ function profile (req, res) {
 
 function listing (req, res) {
   Source.findOne({ book_id: { $in: [req.params.id, '/' + req.params.id] } }, function(err, source) {
-    res.render('library/listing', {
-      csrfToken: req.csrfToken(),
-      source: source,
-      user: req.user,
-      languageKeys: getLanguageKeys(req.user)
+    if (err) {
+      return res.json(err);
+    }
+    Checkout.find({ book_id: { $in: [req.params.id, '/' + req.params.id] } }, function(err, checkouts) {
+      if (err) {
+        return res.json(err);
+      }
+      var opencheckout = null;
+      for (var c = 0; c < checkouts.length; c++) {
+        if (checkouts[c].user_id === req.user._id) {
+          opencheckout = checkouts[c];
+          break;
+        }
+      }
+      res.render('library/listing', {
+        csrfToken: req.csrfToken(),
+        source: source,
+        checkouts: checkouts,
+        opencheckout: opencheckout,
+        user: req.user,
+        languageKeys: getLanguageKeys(req.user)
+      });
     });
   });
 }

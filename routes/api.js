@@ -79,7 +79,7 @@ function checkout(req, res) {
         if (err) {
           return res.json(err);
         }
-        res.redirect(req.body.book_id + '?from=' + req.body.inlang + '&to=' + req.body.outlang);
+        res.redirect(req.body.book_id + '?from=' + checkouts[0].inlang + '&to=' + checkouts[0].outlang);
       });
     } else {
       Source.findOne({ book_id: req.body.book_id }).exec(function (err, book) {
@@ -92,6 +92,7 @@ function checkout(req, res) {
         var c = new Checkout({
           book_id: book.book_id,
           user_id: req.user._id,
+          user_name: req.user.name,
           title: book.title,
           cover: book.cover,
           started: new Date(),

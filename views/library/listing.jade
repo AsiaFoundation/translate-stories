@@ -37,27 +37,36 @@ block content
       input(type="hidden", name="_csrf", value=csrfToken)
       input(type="hidden", name="book_id", value="#{source.book_id}")
       .row
-      .row
-        .col-sm-6
-          .well
-            p These languages are currently available / translated.
-            em From:
-            for language in source.languages
-              label.language-selector
-                input(type="radio", name="inlang", value=language, required)
-                span=languageKeys[language]
-        .col-sm-6
-          .well
-            p If you know languages that this book hasn't been translated to, they will appear here.
-            em To:
-            for language in user.writeLanguages
-              if source.languages.indexOf(language) === -1
-                label.language-selector
-                  input(type="radio", name="outlang", value=language, required)
-                  span=languageKeys[language]
-      .row
         .col-sm-12
-          input.btn.btn-success(type="submit", value="Start Translating!")
+          strong Users translating this book:
+          span= checkouts.map(function(c) { return (c.user_name || c.user_id) }).join(', ')
+      if opencheckout
+        .row
+          .col-sm-12
+            h4 You are currently translating this book
+            input.btn.btn-success(type="submit", value="Resume Translating!")
+      else
+        .row
+          .col-sm-6
+            .well
+              p These languages are currently available / translated.
+              em From:
+              for language in source.languages
+                label.language-selector
+                  input(type="radio", name="inlang", value=language, required)
+                  span=languageKeys[language]
+          .col-sm-6
+            .well
+              p If you know languages that this book hasn't been translated to, they will appear here.
+              em To:
+              for language in user.writeLanguages
+                if source.languages.indexOf(language) === -1
+                  label.language-selector
+                    input(type="radio", name="outlang", value=language, required)
+                    span=languageKeys[language]
+        .row
+          .col-sm-12
+            input.btn.btn-success(type="submit", value="Start Translating!")
   else
     p
       a(href="/login") Log in
