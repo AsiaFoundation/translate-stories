@@ -17,6 +17,8 @@ block content
   .row
     .col-sm-12
       h2.title= user.name
+      strong Languages
+      span= user.readLanguages.map(function(lang) { return languageKeys[lang]; }).join(', ')
       .well
         h4 Current books
         for checkout in checkouts
