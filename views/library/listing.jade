@@ -35,13 +35,16 @@ block content
       input(type="hidden", name="_csrf", value=csrfToken)
       input(type="hidden", name="book_id", value=source.book_id)
       .row
+      .row
         .col-sm-6
+          p These languages are currently available.
           em From:
           for language in source.languages
             label.language-selector
               input(type="radio", name="inlang", value=language, required)
               span= language
         .col-sm-6
+          p If you know any languages that this book isn't available in, they will appear here.
           em To:
           for language in user.writeLanguages
             if source.languages.indexOf(language) === -1
@@ -51,3 +54,7 @@ block content
       .row
         .col-sm-12
           input.btn.btn-success(type="submit", value="Start Translating!")
+  else
+    p
+      a(href="/login") Log in
+      span &nbsp;or register to see which languages you can translate this book into.
