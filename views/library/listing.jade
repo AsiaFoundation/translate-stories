@@ -37,20 +37,22 @@ block content
       .row
       .row
         .col-sm-6
-          p These languages are currently available.
-          em From:
-          for language in source.languages
-            label.language-selector
-              input(type="radio", name="inlang", value=language, required)
-              span= language
-        .col-sm-6
-          p If you know any languages that this book isn't available in, they will appear here.
-          em To:
-          for language in user.writeLanguages
-            if source.languages.indexOf(language) === -1
+          .well
+            p These languages are currently available / translated.
+            em From:
+            for language in source.languages
               label.language-selector
-                input(type="radio", name="outlang", value=language, required)
-                span= language
+                input(type="radio", name="inlang", value=language, required)
+                span=languageKeys[language]
+        .col-sm-6
+          .well
+            p If you know languages that this book hasn't been translated to, they will appear here.
+            em To:
+            for language in user.writeLanguages
+              if source.languages.indexOf(language) === -1
+                label.language-selector
+                  input(type="radio", name="outlang", value=language, required)
+                  span=languageKeys[language]
       .row
         .col-sm-12
           input.btn.btn-success(type="submit", value="Start Translating!")

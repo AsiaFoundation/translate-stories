@@ -11,10 +11,10 @@ block content
     .col-sm-6
       select.language-select
         option(value="") All Languages
-        option(value="en") English
-        option(value="th") Thai
-        option(value="kh") Khmer
-        option(value="karen") Karen
+        option(value="en")= languageKeys['en']
+        option(value="th")= languageKeys['th']
+        option(value="kh")= languageKeys['kh']
+        option(value="karen")= languageKeys['karen']
     .col-sm-6
       .form.searchable
         .input-group
@@ -32,7 +32,7 @@ block content
           img(src=source.cover)
         br
         for language in source.languages
-          span.badge= language
+          span.badge= languageKeys[language]
   .row.library
     for source in sources.slice(4, 8)
       .col-md-3
@@ -41,7 +41,7 @@ block content
           img(src=source.cover)
         br
         for language in source.languages
-          span.badge= language
+          span.badge= languageKeys[language]
   hr
   .row
     .col-sm-12

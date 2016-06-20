@@ -1,5 +1,28 @@
 const Source = require('../models/source.js');
 
+const languageKeys = {
+  en: {
+    en: 'English',
+    th: 'Thai',
+    karen: 'Karen',
+    kh: 'Khmer'
+  },
+  th: {
+    en: 'อังกฤษ',
+    th: 'ภาษาไทย',
+    karen: 'ภาษากะเหรี่ยง',
+    kh: 'ภาษาเขมร'
+  }
+};
+
+function getLanguageKeys(user) {
+  if (user) {
+    return languageKeys[user.preferredLanguage];
+  } else {
+    return languageKeys['en'];
+  }
+}
+
 function index (req, res) {
   Source.find({}).exec(function(err, sources) {
     if (err) {
@@ -7,7 +30,8 @@ function index (req, res) {
     }
     res.render('library/index', {
       sources: sources,
-      csrfToken: req.csrfToken()
+      csrfToken: req.csrfToken(),
+      languageKeys: getLanguageKeys(req.user)
     });
   });
 }
@@ -23,7 +47,8 @@ function listing (req, res) {
     res.render('library/listing', {
       csrfToken: req.csrfToken(),
       source: source,
-      user: req.user
+      user: req.user,
+      languageKeys: getLanguageKeys(req.user)
     });
   });
 }
