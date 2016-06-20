@@ -1,0 +1,53 @@
+extends ../layout.jade
+
+block content
+  .row
+    .col-sm-12
+      .page-header
+        h3
+          span Translate Stories&nbsp;&nbsp;&nbsp;
+          small Library
+          .pull-right
+            if user
+              a.btn.btn-primary(href="/logout") Log Out
+            else
+              a.btn.btn-primary(href="/login") Log In
+  .row
+    .col-sm-12
+      h4.title= source.title
+  .row.library
+    .col-sm-12.listing
+      img(src=source.cover)
+      .fact
+        label Author:
+        span= source.author
+      .fact
+        label Original languages:
+        span= source.languages.join(', ')
+      .fact
+        label Approved translations:
+        span None
+      .fact
+        label Pages:
+        span ?
+  if user
+    form.form(action="/go-translate", method="POST")
+      input(type="hidden", name="_csrf", value=csrfToken)
+      input(type="hidden", name="book_id", value=source.book_id)
+      .row
+        .col-sm-6
+          em From:
+          for language in source.languages
+            label.language-selector
+              input(type="radio", name="inlang", value=language, required)
+              span= language
+        .col-sm-6
+          em To:
+          for language in user.writeLanguages
+            if source.languages.indexOf(language) === -1
+              label.language-selector
+                input(type="radio", name="outlang", value=language, required)
+                span= language
+      .row
+        .col-sm-12
+          input.btn.btn-success(type="submit", value="Start Translating!")

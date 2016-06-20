@@ -5,7 +5,7 @@ function index (req, res) {
     if (err) {
       return res.json(err);
     }
-    res.render('library', {
+    res.render('library/index', {
       sources: sources,
       csrfToken: req.csrfToken()
     });
@@ -13,12 +13,23 @@ function index (req, res) {
 }
 
 function add (req, res) {
-  res.render('addsource', {
+  res.render('library/addsource', {
     csrfToken: req.csrfToken()
+  });
+}
+
+function listing (req, res) {
+  Source.findOne({ book_id: { $in: [req.params.id, '/' + req.params.id] } }, function(err, source) {
+    res.render('library/listing', {
+      csrfToken: req.csrfToken(),
+      source: source,
+      user: req.user
+    });
   });
 }
 
 module.exports = {
   index: index,
-  add: add
+  add: add,
+  listing: listing
 };

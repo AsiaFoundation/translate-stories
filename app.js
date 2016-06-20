@@ -69,8 +69,9 @@ app.get('/', routes.home)
    .get('/verify', csrfProtection, routes.verify.index);
 
 // library routes
-app.get('/library', csrfProtection, routes.library.index)
-   .get('/library/add', csrfProtection, routes.library.add);
+app.get('/library', csrfProtection, routes.login.middleware, routes.library.index)
+   .get('/library/listing/:id', csrfProtection, routes.login.middleware, routes.library.listing)
+   .get('/library/add', csrfProtection, routes.login.middleware, routes.library.add);
 
 // API routes
 app.get('/api/books', routes.api.books)

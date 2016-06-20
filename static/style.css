@@ -136,6 +136,25 @@ form.form label, form.form input {
   padding: 7px 5px 5px 5px;
 }
 
+h4.title {
+  text-align: center;
+}
+
+.row.library .listing > img {
+  float: left;
+  max-width: 25%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.language-selector {
+  display: block;
+}
+
+.language-selector input {
+  margin-right: 10px;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;

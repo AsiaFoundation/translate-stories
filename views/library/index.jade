@@ -1,4 +1,4 @@
-extends ./layout.jade
+extends ../layout.jade
 
 block content
   .row
@@ -27,7 +27,7 @@ block content
   .row.library
     for source in sources.slice(0, 4)
       .col-md-3
-        a(href="#{source.book_id}")
+        a(href="/library/listing#{source.book_id}")
           h4= source.title
           img(src=source.cover)
         br
@@ -36,7 +36,7 @@ block content
   .row.library
     for source in sources.slice(4, 8)
       .col-md-3
-        a(href="#{source.book_id}")
+        a(href="/library/listing#{source.book_id}")
           h4= source.title
           img(src=source.cover)
         br
