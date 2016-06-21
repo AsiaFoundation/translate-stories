@@ -1,5 +1,6 @@
 const Checkout = require('../models/checkout.js');
 const Source = require('../models/source.js');
+const User = require('../models/user.js');
 
 const languageKeys = {
   en: {
@@ -48,16 +49,40 @@ function profile (req, res) {
   if (!req.user) {
     return res.redirect('/login');
   }
-  Checkout.find({ user_id: req.user._id }).sort('-updated').exec(function (err, checkouts){
+  var user_name = req.user.name;
+  if (req.params.user_name) {
+    user_name = req.params.user_name;
+  }
+  Checkout.find({ user_name: user_name }).sort('-updated').exec(function (err, checkouts){
     if (err) {
       return res.json(err);
     }
-    res.render('library/profile', {
-      csrfToken: req.csrfToken(),
-      user: req.user,
-      checkouts: checkouts,
-      languageKeys: getLanguageKeys(req.user)
-    });
+
+    function printProfile(user, isMe) {
+      res.render('library/profile', {
+        csrfToken: req.csrfToken(),
+        user: user,
+        checkouts: checkouts,
+        languageKeys: getLanguageKeys(user),
+        isMe: isMe
+      });
+    }
+
+    if (user_name === req.user.name) {
+      // it's me
+      printProfile(req.user, true);
+    } else {
+      // it's someone else's
+      User.findOne({ name: user_name }).exec(function(err, user) {
+        if (err) {
+          return res.json(err);
+        }
+        if (!user) {
+          return res.json({ error: 'no user with that name' });
+        }
+        printProfile(user, false);
+      });
+    }
   });
 }
 

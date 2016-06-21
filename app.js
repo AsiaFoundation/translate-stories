@@ -72,7 +72,8 @@ app.get('/', routes.home)
 app.get('/library', csrfProtection, routes.login.middleware, routes.library.index)
    .get('/library/listing/:id', csrfProtection, routes.login.middleware, routes.library.listing)
    .get('/library/add', csrfProtection, routes.login.middleware, routes.library.add)
-   .get('/profile', csrfProtection, routes.login.middleware, routes.library.profile);
+   .get('/profile', csrfProtection, routes.login.middleware, routes.library.profile)
+   .get('/profile/:user_name', csrfProtection, routes.login.middleware, routes.library.profile);
 
 // API routes
 app.get('/api/books', routes.api.books)

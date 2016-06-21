@@ -79,6 +79,14 @@ var bye = function (req, res) {
 };
 
 var localregister = function (req, res) {
+  var languages = req.body.languages;
+  if (typeof languages === 'string') {
+    languages = [languages];
+  }
+  if (!languages || !languages.length) {
+    return res.redirect('/register');
+  }
+
   User.find({ name: req.body.username.toLowerCase() }, function (err, users) {
     if (err) {
       return printError(res, err);
@@ -89,10 +97,6 @@ var localregister = function (req, res) {
     pwdhash(req.body.password, function (err, salt, hash) {
       if (err) {
         return printError(res, err);
-      }
-      var languages = req.body.languages;
-      if (typeof languages === 'string') {
-        languages = [languages];
       }
 
       var u = new User({
