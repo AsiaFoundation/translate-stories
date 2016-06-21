@@ -9,17 +9,10 @@ $(function() {
       return;
     }
     for (var b = 0; b < books.length; b++) {
-      var languages = $(books[b]).find('.badge');
-      var foundLanguage = false;
-      for (var l = 0; l < languages.length; l++) {
-        if ($(languages[l]).text() === pickLanguage) {
-          $(books[b]).css('opacity', 1);
-          foundLanguage = true;
-          break;
-        }
-      }
-      if (!foundLanguage) {
+      if (!$(books[b]).find('.badge.' + pickLanguage).length) {
         $(books[b]).css('opacity', 0.5);
+      } else {
+        $(books[b]).css('opacity', 1);
       }
     }
   });

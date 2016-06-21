@@ -1,4 +1,4 @@
-const Book = require('../models/book.js');
+const Translation = require('../models/translation.js');
 
 function home (req, res) {
   if (!req.user) {
@@ -9,12 +9,12 @@ function home (req, res) {
     return res.send('You must be an admin to verify translations.');
   }
 
-  Book.find({ verified: { $ne: true } }, function (err, books) {
+  Translation.find({ verified: { $ne: true } }, function (err, translations) {
     if (err) {
       return res.json(err);
     }
     res.render('verify', {
-      books: books
+      translations: translations
     });
   });
 }

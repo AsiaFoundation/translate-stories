@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var bookSchema = mongoose.Schema({
+var translationSchema = mongoose.Schema({
   book_id: String,
   title: String,
   language: String,
@@ -10,4 +10,4 @@ var bookSchema = mongoose.Schema({
   verified: Boolean
 });
 
-module.exports = mongoose.model('Book', bookSchema);
+module.exports = mongoose.model('Translation', translationSchema);

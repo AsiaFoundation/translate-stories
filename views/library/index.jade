@@ -39,7 +39,7 @@ block content
           img(src=source.cover)
         br
         for language in source.languages
-          span.badge= languageKeys[language]
+          span.badge(class=language)= languageKeys[language]
   .row.library
     for source in sources.slice(4, 8)
       .col-md-3
@@ -48,7 +48,7 @@ block content
           img(src=source.cover)
         br
         for language in source.languages
-          span.badge= languageKeys[language]
+          span.badge(class=language)= languageKeys[language]
   hr
   .row
     .col-sm-12
@@ -57,5 +57,4 @@ block content
           
 block scripts
   script(type="text/javascript", src="/lib/jquery-1.11.3.min.js")
-  script(type="text/javascript", src="/select-languages.js")
   script(type="text/javascript", src="/browse-library.js")

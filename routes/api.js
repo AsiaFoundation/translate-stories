@@ -1,12 +1,12 @@
 const JSZip = require('jszip');
 
-const Book = require('../models/book.js');
 const Checkout = require('../models/checkout.js');
 const Comment = require('../models/comment.js');
 const Source = require('../models/source.js');
+const Translation = require('../models/translation.js');
 
 function books(req, res) {
-  Book.find({}).exec(function (err, myBookData) {
+  Translation.find({}).exec(function (err, myBookData) {
     if (err) {
       return res.json(err);
     }
@@ -15,7 +15,7 @@ function books(req, res) {
 }
 
 function book(req, res) {
-  Book.find({ book_id: req.params.id }).exec(function(err, myBookData) {
+  Translation.find({ book_id: req.params.id }).exec(function(err, myBookData) {
     if (err) {
       return res.json(err);
     }

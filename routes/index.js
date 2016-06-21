@@ -1,4 +1,6 @@
+const Checkout = require('../models/checkout.js');
 const Comment = require('../models/comment.js');
+const Translation = require('../models/translation.js');
 
 const api = require('./api.js');
 const verify = require('./verify.js');
@@ -53,7 +55,7 @@ function translate (req, res) {
   if (!req.user) {
     req.user = { _id: '' };
   }
-  var b = new Book({
+  var t = new Translation({
     book_id: body.story_number,
     title: body.md_title,
     language: body.story_language,
@@ -62,11 +64,11 @@ function translate (req, res) {
     user_id: req.user._id,
     verified: false
   });
-  b.save(function(err) {
+  t.save(function(err) {
     if (err) {
       return res.json(err);
     }
-    res.redirect('/book');
+    res.redirect('/library');
   });
 }
 
