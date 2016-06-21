@@ -175,6 +175,19 @@ img.profile {
   max-width: 250px;
 }
 
+.page-header a {
+  color: #000;
+  text-decoration: none;
+}
+
+.page-header a.btn {
+  color: #fff;
+}
+
+.page-header a:hover {
+  text-decoration: none;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;

@@ -4,6 +4,7 @@ var userSchema = mongoose.Schema({
   googid: String,
   name: String,
   test: Boolean,
+  photo: String,
   localpass: String,
   salt: String,
   canVerify: Boolean,

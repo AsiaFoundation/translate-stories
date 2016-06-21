@@ -10,7 +10,7 @@ block content
           .pull-right
             if user
               a(href="/profile")
-                img.profile(src="/profile.png", alt="profile photo - click to access your own profile")
+                img.profile(src="#{user.photo || '/profile.png'}", alt="profile photo - click to access your own profile")
               a.btn.btn-primary(href="/logout") Log Out
             else
               a.btn.btn-primary(href="/login") Log In
