@@ -23,7 +23,7 @@ block content
         h4 Current books
         for checkout in checkouts
           .bookrecord
-            a(href=checkout.book_id)
+            a(href="#{checkout.book_id}?from=#{checkout.inlang}&to=#{checkout.outlang}")
               h4= checkout.title
               img(src=checkout.cover)
               br
