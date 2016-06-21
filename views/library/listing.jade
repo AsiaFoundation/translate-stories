@@ -25,7 +25,7 @@ block content
         span= source.author
       .fact
         label Original languages:
-        span= source.languages.join(', ')
+        span= source.languages.map(function(lang) { return languageKeys[lang]; }).join(', ')
       .fact
         label Approved translations:
         span None
