@@ -192,6 +192,17 @@ img.profile {
   margin: 10px;
 }
 
+.suggestion {
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  padding: 6px;
+}
+
+a.userprofile {
+  display: block;
+  font-weight: bold;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;

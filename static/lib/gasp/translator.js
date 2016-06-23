@@ -202,6 +202,7 @@ function review_translation() {
 
   // initialize table header
   var content_div = $("<table>").attr("id", "content_table");
+  content_div.html('');
   var header = $("<tr>")
     .append(
       $("<th style='width:25%'>")
@@ -224,7 +225,7 @@ function review_translation() {
       )
     );
   content_div.append(titleRow);
-  format_content = "# " + tr_title + "\n\n##\n";
+  format_content = [tr_title];
 
   // add a row for each page, including all sentences
   for (var i = 0; i < number_of_sections; i++) {
@@ -239,12 +240,12 @@ function review_translation() {
     });
     storySentences = storySentences.join("|||");
 
-    format_content = format_content + storySentences.replace(/\|\|\|/g, "\n") + "\n\n##\n";
+    format_content.push(storySentences.replace(/\|\|\|/g, "\n"));
 
     var pageRow = $("<tr>")
       .append(
         $("<td>").append(
-          $("<img class='revthumb'/>").attr("src", "//raw.githubusercontent.com/global-asp/asp-imagebank/master/medium/" + idx + "/" + page_number + ".jpg")
+          $("<img class='revthumb'/>").attr('src', $('#story_img_' + i).attr('src'))
         )
       )
       .append(
@@ -257,7 +258,8 @@ function review_translation() {
   }
 
   translang = "Translation: " + translator.html() + "\n* Language: " + language.html();
-  translation_output.val(format_content + attribution.replace(/<br>/g, "\n").replace(/Language: .*/, translang));
+  format_content.push(attribution.replace(/<br>/g, "\n").replace(/Language: .*/, translang));
+  translation_output.val(JSON.stringify(format_content));
   $("#submit_form").css({ display: '' });
 
   var review_table = $("#review_table");
@@ -294,7 +296,6 @@ function prepare_submission() {
   sub.val('New translation: #' + idx + ', "' + $("#messages i").text() + '" into ' + $("#language").val() + " by " + $("#translator").val());
   $("#name_line").val($('#translator').val());
   $("#story_number").val(idx);
-  $("#story_language").val($('#language').val());
   $("#md_title").val($("#messages i").text());
   $("#story_translation").val($('#translation_output').val());
   rev.css({ width: "80%" });

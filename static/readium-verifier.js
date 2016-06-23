@@ -135,9 +135,11 @@ function setStory(nav) {
     $('<label>').text('Title: ' + booktitle)
   );
   cover.append($('<br/>'));
-  cover.append(
-    $('<input id="title_text" class="form-control" placeholder="Your translation"/>')
-  );
+  for (var t = 0; t < translations.length; t++) {
+    cover.append(
+      $('<div class="suggestion">').text(translations[t].pages[0])
+    );
+  }
 
   // add title comments
   function cmform(pgnum) {
@@ -183,11 +185,22 @@ function setStory(nav) {
         })
       )
     );
-    page.append($("<div class='form-group translatetext'>").append(
+    var ttext = $("<div class='form-group translatetext'>").append(
       $("<span id='story_src_" + i + "_'>").html(sections[i][0])
-    ).append(
-      $("<textarea id='story_tgt_" + i + "_' class='form-control' placeholder='Your translation'>")
-    ));
+    );
+    for (var t = 0; t < translations.length; t++) {
+      if (translations[t].pages[i]) {
+        ttext.append(
+          $('<div class="suggestion">').text(translations[t].pages[i])
+            .append(
+              $('<a class="userprofile">')
+                .attr('href', '/profile/' + translations[t].translator)
+                .text(translations[t].translator)
+            )
+        );
+      }
+    }
+    page.append(ttext);
 
     // add page comments
     var commentSection = $('<div class="comment">')

@@ -29,7 +29,9 @@ function epub (req, res) {
       book_id: book_id,
       comments: comments,
       userName: (req.user || {}).name,
-      langchange: req.query.from + ' → ' + req.query.to
+      fromlang: req.query.from,
+      tolang: req.query.to,
+      csrfToken: req.csrfToken()
     });
   });
 }
@@ -45,7 +47,9 @@ function epub2 (req, res) {
       book_id: book_id,
       comments: comments,
       userName: (req.user || {}).name,
-      langchange: req.query.from + ' → ' + req.query.to
+      fromlang: req.query.from,
+      tolang: req.query.to,
+      csrfToken: req.csrfToken()
     });
   });
 }
@@ -53,14 +57,14 @@ function epub2 (req, res) {
 function translate (req, res) {
   var body = req.body;
   if (!req.user) {
-    req.user = { _id: '' };
+    req.user = { _id: '', name: '' };
   }
   var t = new Translation({
-    book_id: body.story_number,
+    book_id: body.book_id || body.story_number,
     title: body.md_title,
     language: body.story_language,
-    translator: body._subject,
-    pages: body.story_translation,
+    translator: req.user.name,
+    pages: JSON.parse(body.story_translation),
     user_id: req.user._id,
     verified: false
   });

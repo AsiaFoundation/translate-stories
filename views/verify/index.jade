@@ -6,7 +6,7 @@ block content
       .page-header
         h3
           span Translate Stories&nbsp;&nbsp;&nbsp;
-          small Library
+          small Verifying
           .pull-right
             if user
               a(href="/profile")
@@ -15,19 +15,13 @@ block content
             else
               a.btn.btn-primary(href="/login") Log In
   .row
-    .col-sm-5
+    .col-sm-6
       select.language-select
         option(value="") All Languages
         for lang in Object.keys(languageKeys)
           option(value=lang)= languageKeys[lang]
-    
-    .col-sm-2
-      if user && user.canVerify
-        .canVerify
-          a.btn.btn-primary(href="/verify") Verify Translations  
-          br
       
-    .col-sm-5
+    .col-sm-6
       .form.searchable
         .input-group
           input.form-control(type="text", name="q", placeholder="Search by title...")
@@ -39,8 +33,11 @@ block content
   .row.library
     for source in sources.slice(0, 4)
       .col-md-3
-        a(href="/library/listing/#{source.book_id.replace('/', '')}")
-          h4= source.title
+        a(href="/verify/#{source.book_id.replace('/', '')}")
+          h4
+            span= source.title
+            br
+            span &nbsp;(#{translations_by_source[source.book_id.replace('/', '')]} translations)
           img(src=source.cover)
         br
         for language in source.languages
@@ -48,16 +45,13 @@ block content
   .row.library
     for source in sources.slice(4, 8)
       .col-md-3
-        a(href="/library/listing/#{source.book_id.replace('/', '')}")
-          h4= source.title
+        a(href="/verify/#{source.book_id.replace('/', '')}")
+          h4 #{source.title} (#{translations_by_source[source.book_id.replace('/', '')]} translations)
           img(src=source.cover)
         br
         for language in source.languages
           span.badge(class=language)= languageKeys[language]
   hr
-  .row
-    .col-sm-12
-      a.btn.btn-success(href="/library/add") Add Source
 
           
 block scripts

@@ -65,8 +65,7 @@ app.get('/', routes.home)
    .get('/epub', csrfProtection, routes.epub)
    .get('/epub2', csrfProtection, routes.epub2)
    .get('/book', csrfProtection, routes.book)
-   .post('/translate', routes.login.middleware, csrfProtection, routes.translate)
-   .get('/verify', csrfProtection, routes.verify.index);
+   .post('/translate', csrfProtection, routes.login.middleware, routes.translate);
 
 // library and profile routes
 app.get('/library', csrfProtection, routes.login.middleware, routes.library.index)
@@ -74,6 +73,11 @@ app.get('/library', csrfProtection, routes.login.middleware, routes.library.inde
    .get('/library/add', csrfProtection, routes.login.middleware, routes.library.add)
    .get('/profile', csrfProtection, routes.login.middleware, routes.library.profile)
    .get('/profile/:user_name', csrfProtection, routes.login.middleware, routes.library.profile);
+
+// verify routes
+app.get('/verify', csrfProtection, routes.login.middleware, routes.verify.index)
+   .get('/verify/all', csrfProtection, routes.login.middleware, routes.verify.all)
+   .get('/verify/:book_id', csrfProtection, routes.login.middleware, routes.verify.epub);
 
 // API routes
 app.get('/api/books', routes.api.books)
