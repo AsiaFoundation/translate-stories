@@ -80,7 +80,8 @@ function epub (req, res) {
           source: sources[0],
           target: translations[0].book_id,
           csrf: req.csrfToken(),
-          comments: comments
+          comments: comments,
+          languageKeys: languages.names(req.user || req),
         });
       });
     });

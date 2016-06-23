@@ -97,6 +97,15 @@ require(["readium_shared_js/globalsSetup"], function () {
   });
 });
 
+function showTranslation(translation, page) {
+  return $('<div class="suggestion">').text(translation.pages[page])
+    .append(
+      $('<a class="userprofile">')
+        .attr('href', '/profile/' + translation.translator)
+        .text(translation.translator + ' (-> ' + languageKeys[translation.language] + ')')
+    );
+}
+
 function setStory(nav) {
   $("#viewport").addClass("hide");
   var story_table = $("#story_table");
@@ -137,7 +146,7 @@ function setStory(nav) {
   cover.append($('<br/>'));
   for (var t = 0; t < translations.length; t++) {
     cover.append(
-      $('<div class="suggestion">').text(translations[t].pages[0])
+      showTranslation(translations[t], 0)
     );
   }
 
@@ -190,14 +199,7 @@ function setStory(nav) {
     );
     for (var t = 0; t < translations.length; t++) {
       if (translations[t].pages[i + 1]) {
-        ttext.append(
-          $('<div class="suggestion">').text(translations[t].pages[i + 1])
-            .append(
-              $('<a class="userprofile">')
-                .attr('href', '/profile/' + translations[t].translator)
-                .text(translations[t].translator)
-            )
-        );
+        ttext.append(showTranslation(translations[t], i + 1));
       }
     }
     page.append(ttext);
