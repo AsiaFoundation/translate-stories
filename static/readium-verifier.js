@@ -189,9 +189,9 @@ function setStory(nav) {
       $("<span id='story_src_" + i + "_'>").html(sections[i][0])
     );
     for (var t = 0; t < translations.length; t++) {
-      if (translations[t].pages[i]) {
+      if (translations[t].pages[i + 1]) {
         ttext.append(
-          $('<div class="suggestion">').text(translations[t].pages[i])
+          $('<div class="suggestion">').text(translations[t].pages[i + 1])
             .append(
               $('<a class="userprofile">')
                 .attr('href', '/profile/' + translations[t].translator)
