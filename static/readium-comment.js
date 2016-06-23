@@ -136,7 +136,8 @@ function setStory(nav) {
   );
   cover.append($('<br/>'));
   cover.append(
-    $('<input id="title_text" class="form-control" placeholder="Your translation"/>')
+    $('<textarea id="title_text" class="form-control" placeholder="Your translation">')
+      .val(localStorage[book_id + '_title'] || '')
   );
 
   // add title comments
@@ -187,6 +188,7 @@ function setStory(nav) {
       $("<span id='story_src_" + i + "_'>").html(sections[i][0])
     ).append(
       $("<textarea id='story_tgt_" + i + "_' class='form-control' placeholder='Your translation'>")
+        .val(localStorage[book_id + '_' + i + '_0'] || '')
     ));
 
     // add page comments
@@ -281,6 +283,16 @@ function setStory(nav) {
   });
 
   $("#attribution").html(attribution.replace(/\*/g, '<br/>*'));
+
+  $('textarea.form-control').on('input', function(e) {
+    var txt = $(e.currentTarget);
+    if (txt.attr('id') === 'title_text') {
+      localStorage[book_id + '_title'] = txt.val();
+    } else {
+      var page = txt.attr('id').split('_')[2];
+      localStorage[book_id + '_' + page + '_0'] = txt.val();
+    }
+  });
 
   idx_store.html(idx);
   $("#number_of_sections").html(sections.length);
