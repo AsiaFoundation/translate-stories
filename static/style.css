@@ -188,10 +188,18 @@ img.profile {
   text-decoration: none;
 }
 
+.canVerify {
+  margin: 10px;
+}
+
 @media (min-width: 900px) {
   .item .translatetext {
     width: 45%;
     float: left;
+  }
+
+  .canVerify {
+    margin: 0;
   }
 
   .item .comment {

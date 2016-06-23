@@ -28,11 +28,8 @@ block content
         .form-group
           label Source Language
           select.languagelist(name="languages", multiple="multiple")
-            option(value="en") English
-            option(value="th") Thai
-            option(value="th") ภาษาไทย
-            option(value="karen") Karen
-            option(value="karen") စှီၤ
+            for lang in Object.keys(languageKeys)
+              option(value=lang)= languageKeys[lang] 
 
 block scripts
   link(rel="stylesheet", type="text/css", href="/lib/select2.min.css")

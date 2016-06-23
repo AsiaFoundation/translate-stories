@@ -15,14 +15,19 @@ block content
             else
               a.btn.btn-primary(href="/login") Log In
   .row
-    .col-sm-6
+    .col-sm-5
       select.language-select
         option(value="") All Languages
-        option(value="en")= languageKeys['en']
-        option(value="th")= languageKeys['th']
-        option(value="kh")= languageKeys['kh']
-        option(value="karen")= languageKeys['karen']
-    .col-sm-6
+        for lang in Object.keys(languageKeys)
+          option(value=lang)= languageKeys[lang]
+    
+    .col-sm-2
+      if user && user.canVerify
+        .canVerify
+          a.btn.btn-primary(href="/verify") Verify Translations  
+          br
+      
+    .col-sm-5
       .form.searchable
         .input-group
           input.form-control(type="text", name="q", placeholder="Search by title...")

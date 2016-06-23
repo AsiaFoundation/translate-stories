@@ -25,12 +25,22 @@ block content
             input(type="checkbox", name="canVerify", checked="checked")
             span Verify Translations
           br
-          label List Languages, first language first
+          label Which languages do you read?
+          select.languagelist(name="readLanguages", multiple="multiple")
+            for lang in Object.keys(languageKeys)
+              option(value=lang)= languageKeys[lang] 
           br
-          select.languagelist(name="languages", multiple="multiple")
-            option(value="en") English
-            option(value="th") Thai
-            option(value="karen") Karen
+          br
+          label Which languages do you write?
+          select.languagelist(name="writeLanguages", multiple="multiple")
+            for lang in Object.keys(languageKeys)
+              option(value=lang)= languageKeys[lang] 
+          br
+          br
+          label What language should we show you on our site?
+          select.languagelist(name="preferredLanguage")
+            for lang in Object.keys(languageKeys)
+              option(value=lang)= languageKeys[lang] 
           br
           br
           input(type="hidden", name="_csrf", value="#{csrfToken}")

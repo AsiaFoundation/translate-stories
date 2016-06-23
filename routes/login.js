@@ -5,6 +5,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const crypto = require('crypto');
 
 const User = require('../models/user.js');
+const languages = require('../knownlanguages.js');
 
 var middleware = function(req, res, next) {
   if (process.env.GOOGLE_CONSUMER_KEY && process.env.GOOGLE_CLIENT_SECRET) {
@@ -66,7 +67,8 @@ var startregister = function (req, res) {
     return res.redirect('/login');
   }
   res.render('register', {
-    csrfToken: req.csrfToken()
+    csrfToken: req.csrfToken(),
+    languageKeys: languages.names(req)
   });
 };
 
@@ -79,11 +81,15 @@ var bye = function (req, res) {
 };
 
 var localregister = function (req, res) {
-  var languages = req.body.languages;
-  if (typeof languages === 'string') {
-    languages = [languages];
+  var readLanguages = req.body.readLanguages;
+  if (typeof readLanguages === 'string') {
+    readLanguages = [readLanguages];
   }
-  if (!languages || !languages.length) {
+  var writeLanguages = req.body.writeLanguages;
+  if (typeof writeLanguages === 'string') {
+    writeLanguages = [writeLanguages];
+  }
+  if (!readLanguages || !writeLanguages || !req.body.preferredLanguage) {
     return res.redirect('/register');
   }
 
@@ -104,10 +110,10 @@ var localregister = function (req, res) {
         localpass: hash,
         salt: salt,
         test: false,
-        verify: (req.body.canVerify === 'on'),
-        readLanguages: languages,
-        writeLanguages: languages,
-        preferredLanguage: languages[0] || 'en'
+        canVerify: (req.body.canVerify === 'on'),
+        readLanguages: readLanguages,
+        writeLanguages: writeLanguages,
+        preferredLanguage: req.body.preferredLanguage || 'en'
       });
       u.save(function (err) {
         if (err) {

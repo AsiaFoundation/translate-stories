@@ -2,28 +2,7 @@ const Checkout = require('../models/checkout.js');
 const Source = require('../models/source.js');
 const User = require('../models/user.js');
 
-const languageKeys = {
-  en: {
-    en: 'English',
-    th: 'Thai',
-    karen: 'Karen',
-    kh: 'Khmer'
-  },
-  th: {
-    en: 'อังกฤษ',
-    th: 'ภาษาไทย',
-    karen: 'ภาษากะเหรี่ยง',
-    kh: 'ภาษาเขมร'
-  }
-};
-
-function getLanguageKeys(user) {
-  if (user) {
-    return languageKeys[user.preferredLanguage];
-  } else {
-    return languageKeys['en'];
-  }
-}
+const languages = require('../knownlanguages.js');
 
 function index (req, res) {
   Source.find({}).exec(function(err, sources) {
@@ -33,7 +12,7 @@ function index (req, res) {
     res.render('library/index', {
       sources: sources,
       csrfToken: req.csrfToken(),
-      languageKeys: getLanguageKeys(req.user),
+      languageKeys: languages.names(req.user || req),
       user: req.user
     });
   });
@@ -41,7 +20,8 @@ function index (req, res) {
 
 function add (req, res) {
   res.render('library/addsource', {
-    csrfToken: req.csrfToken()
+    csrfToken: req.csrfToken(),
+    languageKeys: languages.names(req.user || req),
   });
 }
 
@@ -63,7 +43,7 @@ function profile (req, res) {
         csrfToken: req.csrfToken(),
         user: user,
         checkouts: checkouts,
-        languageKeys: getLanguageKeys(user),
+        languageKeys: languages.names(user),
         isMe: isMe
       });
     }
@@ -108,7 +88,7 @@ function listing (req, res) {
         checkouts: checkouts,
         opencheckout: opencheckout,
         user: req.user,
-        languageKeys: getLanguageKeys(req.user)
+        languageKeys: languages.names(req.user)
       });
     });
   });

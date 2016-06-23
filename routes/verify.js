@@ -9,7 +9,7 @@ function home (req, res) {
     return res.send('You must be an admin to verify translations.');
   }
 
-  Translation.find({ verified: { $ne: true } }, function (err, translations) {
+  Translation.find({ language: { $in: req.user.readLanguages }, verified: { $ne: true } }, function (err, translations) {
     if (err) {
       return res.json(err);
     }
