@@ -1,3 +1,5 @@
+// deprecated, original code from ReadiumJS example
+
 require(["readium_shared_js/globalsSetup"], function () {
 
 

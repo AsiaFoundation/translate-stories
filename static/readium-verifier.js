@@ -1,3 +1,5 @@
+// used by the verifier to see comments and submitted Translations
+
 var wholepages;
 var booktitle = '';
 var readium = undefined;

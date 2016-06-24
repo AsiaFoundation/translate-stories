@@ -32,25 +32,10 @@ block content
   br
   .row.library
     for source in sources.slice(0, 4)
-      .col-md-3
-        a(href="/verify/#{source.book_id.replace('/', '')}")
-          h4
-            span= source.title
-            br
-            span &nbsp;(#{translations_by_source[source.book_id.replace('/', '')]} translations)
-          img(src=source.cover)
-        br
-        for language in source.languages
-          span.badge(class=language)= languageKeys[language]
+      include sourcetile
   .row.library
     for source in sources.slice(4, 8)
-      .col-md-3
-        a(href="/verify/#{source.book_id.replace('/', '')}")
-          h4 #{source.title} (#{translations_by_source[source.book_id.replace('/', '')]} translations)
-          img(src=source.cover)
-        br
-        for language in source.languages
-          span.badge(class=language)= languageKeys[language]
+      include sourcetile
   hr
 
           

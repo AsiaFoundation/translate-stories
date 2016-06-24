@@ -5,6 +5,7 @@ const User = require('../models/user.js');
 const languages = require('../knownlanguages.js');
 
 function index (req, res) {
+  // show all books in the library
   Source.find({}).exec(function(err, sources) {
     if (err) {
       return res.json(err);
@@ -18,6 +19,7 @@ function index (req, res) {
   });
 }
 
+// form to add a new EPUB Source (no POST destination created yet)
 function add (req, res) {
   res.render('library/addsource', {
     csrfToken: req.csrfToken(),
@@ -25,14 +27,19 @@ function add (req, res) {
   });
 }
 
+// user profile (yours or someone else's)
 function profile (req, res) {
+  // you need to be logged in
   if (!req.user) {
     return res.redirect('/login');
   }
+
   var user_name = req.user.name;
   if (req.params.user_name) {
     user_name = req.params.user_name;
   }
+
+  // load any books that this user is working on, starting with most recent
   Checkout.find({ user_name: user_name }).sort('-updated').exec(function (err, checkouts){
     if (err) {
       return res.json(err);
@@ -52,7 +59,7 @@ function profile (req, res) {
       // it's me
       printProfile(req.user, true);
     } else {
-      // it's someone else's
+      // it's someone else
       User.findOne({ name: user_name }).exec(function(err, user) {
         if (err) {
           return res.json(err);
@@ -66,11 +73,14 @@ function profile (req, res) {
   });
 }
 
+// individual book listing in the library
 function listing (req, res) {
   Source.findOne({ book_id: { $in: [req.params.id, '/' + req.params.id] } }, function(err, source) {
     if (err) {
       return res.json(err);
     }
+
+    // have a list of everyone currently working on this book
     Checkout.find({ book_id: { $in: [req.params.id, '/' + req.params.id] } }, function(err, checkouts) {
       if (err) {
         return res.json(err);

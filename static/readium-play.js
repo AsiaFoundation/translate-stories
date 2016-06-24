@@ -1,3 +1,5 @@
+// deprecated
+
 var wholepages;
 var booktitle = '';
 var readium = undefined;

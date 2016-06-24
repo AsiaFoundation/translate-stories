@@ -1,3 +1,10 @@
+/*
+  list of language names for each language
+  the database stores a language by its code (English -> en)
+  then in English it displays "English"
+  in Thai it displays "ภาษาไทย"
+*/
+
 const keys = {
   en: {
     en: 'English',
@@ -13,6 +20,7 @@ const keys = {
   }
 };
 
+// base language selection on user profile or on HTTP request headers
 function names(user_or_req) {
   if (user_or_req) {
     if (user_or_req.preferredLanguage) {

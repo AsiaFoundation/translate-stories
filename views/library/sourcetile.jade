@@ -1,0 +1,7 @@
+.col-md-3
+  a(href="/library/listing/#{source.book_id.replace('/', '')}")
+    h4= source.title
+    img(src=source.cover)
+  br
+  for language in source.languages
+    span.badge(class=language)= languageKeys[language]

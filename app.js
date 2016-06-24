@@ -76,13 +76,10 @@ app.get('/library', csrfProtection, routes.login.middleware, routes.library.inde
 
 // verify routes
 app.get('/verify', csrfProtection, routes.login.middleware, routes.verify.index)
-   .get('/verify/all', csrfProtection, routes.login.middleware, routes.verify.all)
    .get('/verify/:book_id', csrfProtection, routes.login.middleware, routes.verify.epub);
 
 // API routes
-app.get('/api/books', routes.api.books)
-   .get('/api/books/:id', routes.api.book)
-   .get('/api/books/:id/export', routes.api.output)
+app.get('/api/books/:id/export', routes.api.output)
    .post('/api/comment', routes.api.comment)
    .post('/api/checkout', routes.api.checkout);
 

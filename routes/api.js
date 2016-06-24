@@ -5,24 +5,8 @@ const Comment = require('../models/comment.js');
 const Source = require('../models/source.js');
 const Translation = require('../models/translation.js');
 
-function books(req, res) {
-  Translation.find({}).exec(function (err, myBookData) {
-    if (err) {
-      return res.json(err);
-    }
-    res.json(myBookData);
-  });
-}
-
-function book(req, res) {
-  Translation.find({ book_id: req.params.id }).exec(function(err, myBookData) {
-    if (err) {
-      return res.json(err);
-    }
-    res.json(myBookData);
-  });
-}
-
+// draft for how an EPUB ZIP file might be created
+// currently I can't open the ZIPs that this creates?
 function output(req, res) {
   var zip = new JSZip();
   //var epub = zip.folder('EPUB');
@@ -44,10 +28,14 @@ function output(req, res) {
     });
 }
 
+// receive a POSTed comment and connect it to this Source and page of the book
 function comment(req, res) {
+  // require logged in user
   if (!req.user) {
     return res.redirect('/login');
   }
+
+  // generate and save the Comment object
   var c = new Comment({
     user_id: req.user._id,
     book_id: req.body.book_id,
@@ -64,24 +52,29 @@ function comment(req, res) {
   });
 }
 
+// create a Checkout record or resume editing a book
 function checkout(req, res) {
+  // require user to be logged in
   if (!req.user) {
     return res.redirect('/login');
   }
-  // see if this book is already checked out by the user
-  Checkout.find({ book_id: req.body.book_id, user_id: req.user._id }).exec(function (err, checkouts) {
+
+  // see if this book was already checked out by the user
+  Checkout.findOne({ book_id: req.body.book_id, user_id: req.user._id }).exec(function (err, checkout) {
     if (err) {
       return res.json(err);
     }
-    if (checkouts.length) {
-      checkouts[0].updated = new Date();
-      checkouts[0].save(function (err) {
+    if (checkout) {
+      // resume editing
+      checkout.updated = new Date();
+      checkout.save(function (err) {
         if (err) {
           return res.json(err);
         }
-        res.redirect(req.body.book_id + '?from=' + checkouts[0].inlang + '&to=' + checkouts[0].outlang);
+        res.redirect(req.body.book_id + '?from=' + checkout.inlang + '&to=' + checkout.outlang);
       });
     } else {
+      // load information about the source
       Source.findOne({ book_id: req.body.book_id }).exec(function (err, book) {
         if (err) {
           return res.json(err);
@@ -89,6 +82,8 @@ function checkout(req, res) {
         if (!book) {
           return res.json({ error: 'no book with this book_id' });
         }
+
+        // create and store a new Checkout object
         var c = new Checkout({
           book_id: book.book_id,
           user_id: req.user._id,
@@ -98,8 +93,7 @@ function checkout(req, res) {
           started: new Date(),
           updated: new Date(),
           inlang: req.body.inlang,
-          outlang: req.body.outlang,
-          comments: []
+          outlang: req.body.outlang
         });
         c.save(function(err) {
           if (err) {
@@ -113,8 +107,6 @@ function checkout(req, res) {
 }
 
 module.exports = {
-  books: books,
-  book: book,
   output: output,
   comment: comment,
   checkout: checkout

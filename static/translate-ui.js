@@ -1,3 +1,7 @@
+// test to convert English labels in /book reader into Thai
+// uses Airbnb's PolyglotJS for i18n
+// also check out how we did Shuvayatra.org
+
 var polyglot = new Polyglot({
   phrases: {
     'to get started, press the translate! button below.': 'ในการเริ่มต้นกด -แปล!- ปุ่ม',

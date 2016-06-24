@@ -4,15 +4,19 @@ const Translation = require('../models/translation.js');
 
 const languages = require('../knownlanguages.js');
 
+// verifier starts here
 function home (req, res) {
+  // determine that user is a valid verifier
   if (!req.user) {
     return res.redirect('/login');
   }
-
   if (!req.user.canVerify) {
     return res.send('You must be an admin to verify translations.');
   }
 
+  // find all User-submitted Translations that this verifier would be able to read
+  // capture their book_ids and filter for uniqueness
+  // then load those Sources for display to the verifier
   Translation.find({ language: { $in: req.user.readLanguages }, verified: { $ne: true } }).select('book_id').exec(function (err, translations) {
     if (err) {
       return res.json(err);
@@ -46,6 +50,7 @@ function home (req, res) {
   });
 }
 
+// EPUB Source viewer, this time for verifier to see submitted Translations
 function epub (req, res) {
   if (!req.user) {
     return res.redirect('/login');
@@ -88,25 +93,7 @@ function epub (req, res) {
   });
 }
 
-function all (req, res) {
-  if (!req.user) {
-    return res.redirect('/login');
-  }
-
-  if (!req.user.canVerify) {
-    return res.send('You must be an admin to verify translations.');
-  }
-
-  Translation.find({}).exec(function (err, ts) {
-    if (err) {
-      return res.json(err);
-    }
-    return res.json(ts);
-  });
-}
-
 module.exports = {
   index: home,
-  epub: epub,
-  all: all
+  epub: epub
 };

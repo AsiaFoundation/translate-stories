@@ -25,6 +25,9 @@ block content
             input(type="checkbox", name="canVerify", checked="checked")
             span Verify Translations
           br
+          
+          // read and write languages could be condensed
+          // modify this list on knownlanguages.js
           label Which languages do you read?
           select.languagelist(name="readLanguages", multiple="multiple")
             for lang in Object.keys(languageKeys)

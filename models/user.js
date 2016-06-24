@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+// users using PassportJS for authentication
+// currently storing readLanguages and writeLanguages as separate arrays, but they could be unified
+// depends on our practical needs
+
 var userSchema = mongoose.Schema({
   googid: String,
   name: String,

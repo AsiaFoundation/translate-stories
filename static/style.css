@@ -1,3 +1,10 @@
+/*
+   in some browsers, ReadiumJS needs the iframe to exist and be display: block to show content
+   give it height and opacity: 0 so it works, but we don't have to look at it
+
+   if you don't know if Readium can detect the book, set opacity: 1 and you should see it
+   flipping through the pages
+ */
 #viewport, .book-frame, .reflowable-content-frame {
   height: 600px;
 }
@@ -20,6 +27,8 @@
   border: 1px solid #000;
   padding: 8px;
 }
+
+/* Owl Carousel is the page flipping thing */
 
 .owl-item .img-holder {
   text-align: center;
@@ -202,6 +211,8 @@ a.userprofile {
   display: block;
   font-weight: bold;
 }
+
+/* desktop-specific */
 
 @media (min-width: 900px) {
   .item .translatetext {

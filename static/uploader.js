@@ -1,3 +1,5 @@
+// experimental use of JSZip on the client-side
+
 document.getElementById("fileup").onchange = function(e) {
   console.log(e.target.files[0]);
 

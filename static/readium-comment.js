@@ -1,3 +1,5 @@
+// used by the average EPUB user to show and display comments
+
 var wholepages;
 var booktitle = '';
 var readium = undefined;
@@ -259,6 +261,7 @@ function setStory(nav) {
         user_name: userName,
         text: txt
       }));
+      // confirm that comment POST was successful
       console.log(data);
     });
   });

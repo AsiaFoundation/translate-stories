@@ -38,22 +38,10 @@ block content
   br
   .row.library
     for source in sources.slice(0, 4)
-      .col-md-3
-        a(href="/library/listing/#{source.book_id.replace('/', '')}")
-          h4= source.title
-          img(src=source.cover)
-        br
-        for language in source.languages
-          span.badge(class=language)= languageKeys[language]
+      include sourcetile
   .row.library
     for source in sources.slice(4, 8)
-      .col-md-3
-        a(href="/library/listing/#{source.book_id.replace('/', '')}")
-          h4= source.title
-          img(src=source.cover)
-        br
-        for language in source.languages
-          span.badge(class=language)= languageKeys[language]
+      include sourcetile
   hr
   .row
     .col-sm-12
